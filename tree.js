@@ -16,13 +16,35 @@ const information = {
   'c': {
     count: 1,
     job: function (props, vals, check) {
-      return (check) ? props[execute(props, vals[1])] : 0
+      if (check && props[execute(props, vals[1])]) return (check) ? props[execute(props, vals[1])] : 0
+      return 0
     },
     name: 'input'
   },
+  'd': {
+    count: 1,
+    job: function (props, vals, check) {
+      return (check) ? Math.floor(Math.random() * 100) <= vals[1] : 0
+    },
+    name: 'random'
+  },
+  'e': {
+    count: 2,
+    job: function (props, vals, check) {
+      return (check) ? execute(props, vals[1]) * execute(props, vals[2]) : 0
+    },
+    name: 'multiply'
+  },
+}
+
+function run (inputs, code) {
+  let final = execute(inputs, code)
+  if (final == undefined || final == NaN) return 0
+  return final
 }
 
 function execute (inputs, code) {
+  // console.log("'info'", code, typeof code)
   if (['number', 'string', 'boolean'].contains(typeof code)) {
     return code
   }
@@ -38,8 +60,6 @@ function execute (inputs, code) {
   else {
     for (var func in information) {
       if (code[0] == func || code[0] == information[func].name) {
-        if (!(code.length > information[func].count)) {
-        }
         return information[func].job(inputs, code, code.length > information[func].count)
       }
     }
@@ -71,5 +91,6 @@ function parse (dna) {
   return dna
 }
 
+module.exports.run = run
 module.exports.execute = execute
 module.exports.parse = parse

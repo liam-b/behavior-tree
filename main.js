@@ -4,8 +4,8 @@ Array.prototype.remove = function (index, index2) {
   if (!index2) index2 = index
   return this.splice(index, index2 - index + 1)
 }
-Array.prototype.insert = function(i,...rest) {
-  return this.splice(i,0,...rest)
+Array.prototype.insert = function(i, ...rest) {
+  return this.splice(i, 0, ...rest)
 }
 Array.prototype.contains = function(value) {
   return this.indexOf(value) != -1
@@ -19,16 +19,24 @@ function randChance (chance) {
   return  Math.floor(Math.random() * 100) <= chance
 }
 
-const possible = 'nfi'
+const possible = [0, 1, 2, 3, 4, 5, 'a', 'b', 'c', 'd', 'e']
 
 function random (length) {
     var result = [];
     for (var i = length; i > 0; --i) result.push(possible[Math.floor(Math.random() * possible.length)])
-    return result;
+    return result
 }
 
 // console.log(random(10))
 
-var newDna = tree.parse([['a', 1, 'c', 'b', 1, 1]])
-console.log(newDna)
-console.log(tree.execute([5], newDna))
+// console.log(tree.run([1, 1, 1], ['c', ['c']]))
+var loop = true
+
+while (loop) {
+  var rand = random(4)
+  var currentDna = tree.parse(rand)
+  console.log(currentDna)
+  var result = tree.run([1], currentDna)
+  console.log(result)
+  if (result == 2) loop = false
+}
