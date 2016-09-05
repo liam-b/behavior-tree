@@ -1,4 +1,5 @@
-const tree = require('./tree.js')
+var tree = require('./tree.js')
+require('./proto.js')
 
 Array.prototype.remove = function (index, index2) {
   if (!index2) index2 = index
@@ -19,24 +20,10 @@ function randChance (chance) {
   return  Math.floor(Math.random() * 100) <= chance
 }
 
-const possible = [0, 1, 2, 3, 4, 5, 'a', 'b', 'c', 'd', 'e']
-
-function random (length) {
-    var result = [];
-    for (var i = length; i > 0; --i) result.push(possible[Math.floor(Math.random() * possible.length)])
-    return result
-}
-
-// console.log(random(10))
-
-// console.log(tree.run([1, 1, 1], ['c', ['c']]))
-var loop = true
-
-while (loop) {
-  var rand = random(4)
-  var currentDna = tree.parse(rand)
-  console.log(currentDna)
-  var result = tree.run([1], currentDna)
-  console.log(result)
-  if (result == 2) loop = false
-}
+console.log(tree.run([
+  action.move(10),
+  action.sleep(),
+  operator.loop(10, [
+    action.move(1)
+  ])
+]))
