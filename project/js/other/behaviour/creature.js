@@ -14,21 +14,6 @@ class Creature {
 	constructor () {
 		//this.behaviour = {}; //A tree defining the behaviour.
 
-		//Behaviour for this creature is
-		//
-		/*
-		Loop {
-			sleep (random(0-10))
-			turn 40 degrees
-			if this creatures health is less than ten
-				turn -10 degrees
-			otherwise
-				move 20 units in it's current direction.
-		}
-		*/
-
-		// [loop [ sleep(random(0,10) turn(40) if(mem('health') < 10)[ turn(-10) move(20) ]) ]]
-
 		this.behaviour = [
 			new actionSleep(),
 
@@ -47,30 +32,6 @@ class Creature {
 
 			new actionSleep()
 		]
-
-		/*this.behaviour = [
-			new operatorLoop ([
-				new actionSleep (
-					new operatorRandom(0,10)
-				),
-				new actionTurn (
-					40
-				),
-				new operatorIf (
-					[operatorMemory(
-						'health'
-					),
-					'<',
-					10 ],
-					new actionTurn (
-						-10
-					),
-					new actionMove (
-						20
-					)
-				)
-			])
-		];*/
 
 	}
 
