@@ -8,6 +8,7 @@ var creature = new Creature([
   new tree.operator.loop(3, [
     new tree.action.sleep(1),
     new tree.action.move(2),
+    new tree.action.turn(2)
   ])
 ])
 

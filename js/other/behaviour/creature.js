@@ -45,6 +45,8 @@
 class Creature {
 	constructor (behavior) {
 		this.behavior = behavior
+		this.rotation = 0
+		this.position = {x: 0, y: 0}
 	}
 
 	behave () {
