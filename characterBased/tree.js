@@ -1,41 +1,4 @@
-const information = {
-  'a': {
-    count: 2,
-    job: function (props, vals, check) {
-      return (check) ? execute(props, vals[1]) + execute(props, vals[2]) : 0
-    },
-    name: 'add'
-  },
-  'b': {
-    count: 2,
-    job: function (props, vals, check) {
-      return (check) ? execute(props, vals[1]) - execute(props, vals[2]) : 0
-    },
-    name: 'subtract'
-  },
-  'c': {
-    count: 1,
-    job: function (props, vals, check) {
-      if (check && props[execute(props, vals[1])]) return (check) ? props[execute(props, vals[1])] : 0
-      return 0
-    },
-    name: 'input'
-  },
-  'd': {
-    count: 1,
-    job: function (props, vals, check) {
-      return (check) ? Math.floor(Math.random() * 100) <= vals[1] : 0
-    },
-    name: 'random'
-  },
-  'e': {
-    count: 2,
-    job: function (props, vals, check) {
-      return (check) ? execute(props, vals[1]) * execute(props, vals[2]) : 0
-    },
-    name: 'multiply'
-  },
-}
+var jobs = require('./functions.js');
 
 function run (inputs, code) {
   let final = execute(inputs, code)
@@ -44,7 +7,7 @@ function run (inputs, code) {
 }
 
 function execute (inputs, code) {
-  // console.log("'info'", code, typeof code)
+  // console.log("'info'", code, typeof code, ['number', 'string', 'boolean'].contains(typeof code))
   if (['number', 'string', 'boolean'].contains(typeof code)) {
     return code
   }
@@ -58,9 +21,9 @@ function execute (inputs, code) {
     return output
   }
   else {
-    for (var func in information) {
-      if (code[0] == func || code[0] == information[func].name) {
-        return information[func].job(inputs, code, code.length > information[func].count)
+    for (var func in jobs) {
+      if (code[0] == func || code[0] == jobs[func].shortName) {
+        return jobs[func].run(execute, inputs, code, code.length > jobs[func].count)
       }
     }
   }
