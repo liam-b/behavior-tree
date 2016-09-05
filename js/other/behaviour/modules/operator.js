@@ -29,5 +29,16 @@ module.exports = {
     run () {
       iterate((condition) ? whenTrue : whenFalse)
     }
+  },
+  'loop': class {
+    constructor (loops, code) {
+      this.loops = loops
+      this.code = code
+    }
+    run () {
+      for (var int = 0; int < this.loops; int += 1) {
+        iterate(this.code)
+      }
+    }
   }
 }
