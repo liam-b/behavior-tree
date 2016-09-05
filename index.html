@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="creatureSim">
 	<head>
 		<meta charset="utf-8">
 		<title>Creature Behaviour System</title>
@@ -9,19 +9,19 @@
 	<body>
 		<div class="layout">
 			<h1>Artificial Creature Development</h1>
-			<div id="simulation">
+			<div id="simulation" ng-controller="SimulationController">
 				<canvas id="simulationCanvas">
 					Your browser does not support HTML5 canvas.
 				</canvas>
 			</div>
-			<div id="creatureBrain">
+			<div id="creatureBrain" ng-controller="BrainController">
 				<ul>
 					<li>Walk (5)</li>
 					<li>Sleep ()</li>
 					<li>rotate (90)</li>
 				</ul>
 			</div>
-			<div id="generations">
+			<div id="generations" ng-controller="GenerationsController">
 				<ul>
 					<li>Generation 1</li>
 					<li>Generation 2</li>
@@ -33,5 +33,14 @@
 
         	<div style="clear: both;"></div> <!--http://tinyurl.com/hwjv3od-->
 		</div>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
+
+		<script src="js/app.js"></script>
+		<script src="js/services/SimulationService.js"></script>
+		<script src="js/controllers/BrainCtrl.js"></script>
+		<script src="js/controllers/GenerationsCtrl.js"></script>
+		<script src="js/controllers/SimulationCtrl.js"></script>
+
 	</body>
 </html>
