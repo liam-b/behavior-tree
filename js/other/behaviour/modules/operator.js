@@ -1,6 +1,6 @@
-function iterate (arr) {
+function iterate (arr, creature) {
   for (var i in arr) {
-    arr[i].run()
+    arr[i].run(creature)
   }
 }
 
@@ -18,16 +18,16 @@ module.exports = {
       this.min = min
       this.max = max
     }
-    run () {
-      return Math.floor(Math.random() * (this.max.run() - this.min.run() + 1)) + this.min.run()
+    run (creature) {
+      return Math.floor(Math.random() * (this.max.run(creature) - this.min.run(creature) + 1)) + this.min.run(creature)
     }
   },
   'if': class {
     constructor (condition, whenTrue, whenFalse) {
       this.condition = condition
     }
-    run () {
-      iterate((condition) ? whenTrue : whenFalse)
+    run (creature) {
+      iterate((condition) ? whenTrue : whenFalse, creature)
     }
   },
   'loop': class {
@@ -35,9 +35,9 @@ module.exports = {
       this.loops = loops
       this.code = code
     }
-    run () {
+    run (creature) {
       for (var int = 0; int < this.loops; int += 1) {
-        iterate(this.code)
+        iterate(this.code, creature)
       }
     }
   }

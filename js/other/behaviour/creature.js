@@ -1,14 +1,14 @@
 class Creature {
-	constructor (behavior) {
+	constructor (info, behavior) {
 		this.behavior = behavior
-		this.energy = 0
-		this.rotation = 0
-		this.position = {x: 0, y: 0}
+		this.energy = info.energy
+		this.rotation = info.rotation
+		this.position = {x: info.position.x, y:info.position.y}
 	}
 
 	behave () {
 		for (var i in this.behavior) {
-	    this.behavior[i].run()
+	    this.behavior[i].run(this)
 	  }
 	}
 }

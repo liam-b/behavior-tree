@@ -4,7 +4,8 @@ module.exports = {
       this.distance = distance
     }
 
-    run () {
+    run (creature) {
+      creature.position.x += 10
       console.log('I moved ' + this.distance.run() + ' steps')
     }
   },
@@ -13,7 +14,8 @@ module.exports = {
       this.time = time
     }
 
-    run () {
+    run (creature) {
+      creature.energy += 10
       console.log('I slept for ' + this.time.run() + ' minute(s)')
     }
   },
@@ -22,11 +24,13 @@ module.exports = {
       this.rotation = rotation
     }
 
-    run () {
+    run (creature) {
       if ([0, 1, 2, 3].indexOf(this.rotation) != -1) {
+        creature.rotation = this.rotation
         console.log('I rotated to direction ' + this.rotation.run())
       }
       else {
+        creature.rotation = 0
         console.log('I rotated to direction ' + 0)
       }
     }
