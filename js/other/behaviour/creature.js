@@ -6,7 +6,7 @@ class Creature {
 		this.position = {x: info.position.x, y:info.position.y}
 	}
 
-	behave () {
+  behave () {
 		for (var i in this.behavior) {
 	    this.behavior[i].run(this)
 	  }

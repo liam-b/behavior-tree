@@ -1,5 +1,5 @@
-var operator = require('./modules/operator.js')
-var action = require('./modules/action.js')
+module.exports.operator = require('./modules/operator.js')
+module.exports.action = require('./modules/action.js')
 
 Number.prototype.run = function () {
   return this
@@ -10,6 +10,3 @@ module.exports.run = function () {
     arr[i].run()
   }
 }
-
-module.exports.action = action
-module.exports.operator = operator
