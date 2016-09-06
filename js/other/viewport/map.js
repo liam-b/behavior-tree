@@ -4,7 +4,14 @@ tileImg.src = "assets/tiles.png";
 var Map = function(){
 	this.width = 10;
 	this.height = 10;
-	this.tileSize = 64;
+	this.fitOnScreen = false;
+
+	if (this.fitOnScreen){
+		this.tileSize = Math.min(width / this.width, height / this.height);
+	} else {
+		this.tileSize = 64;
+	}
+
 	this.drawGrid = true;
 	this.tiles =
 	[
@@ -34,7 +41,7 @@ Map.prototype.draw = function(c) {
 	for (x = 0; x < this.width; x++){
 		for (y = 0; y < this.height; y++){
 			var tile = this.getTile(x,y);
-			c.drawImage(tileImg,300*tile,0,300,300,x*this.tileSize,y*this.tileSize,64,64);
+			c.drawImage(tileImg,300*tile,0,300,300,x*this.tileSize,y*this.tileSize,this.tileSize,this.tileSize);
 
 		}
 	}
