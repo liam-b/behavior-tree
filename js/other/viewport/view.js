@@ -1,11 +1,13 @@
-function showViewport(canvasElement){
+const Creature = require('./creature.js');
+const Map = require('./map.js');
+module.exports = function (canvasElement){
 	var c = canvasElement.getContext('2d');
 
 	canvasElement.setAttribute('width', window.getComputedStyle(canvasElement).width);
 	canvasElement.setAttribute('height', window.getComputedStyle(canvasElement).height);
 
-	width = canvasElement.width;
-	height = canvasElement.height;
+	var width = canvasElement.width;
+	var height = canvasElement.height;
 
 	var level = new Map();
 	var activeCreature = new Creature(5,5,level);

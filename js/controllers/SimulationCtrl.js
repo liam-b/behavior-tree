@@ -1,3 +1,5 @@
 angular.module('SimulationCtrl',[]).controller('SimulationController', function($scope,Simulation){
-	showViewport(document.getElementById('simulationCanvas'));
+	var view = require('../other/viewport/view');
+	console.log(view);
+	view(document.getElementById('simulationCanvas'));
 });

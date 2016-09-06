@@ -2,6 +2,7 @@ const gulp = require('gulp');
 const sourcemaps = require('gulp-sourcemaps');
 const babel = require('gulp-babel');
 const concat = require('gulp-concat');
+var webpack = require('webpack-stream');
 
 var filesToMove = [
         'css/**/*.css',
@@ -12,6 +13,7 @@ var filesToMove = [
 gulp.task('js', () => {
     return gulp.src('js/**/*.js')
         .pipe(sourcemaps.init())
+        .pipe(webpack())
         .pipe(babel({
             presets: ['es2015']
         }))

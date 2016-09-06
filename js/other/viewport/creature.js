@@ -17,3 +17,4 @@ Creature.prototype.update = function() {
 Creature.prototype.draw = function(c) {
 	c.drawImage(img,this.x*this.level.tileSize,this.y*this.level.tileSize,this.level.tileSize,this.level.tileSize);
 }
+module.exports = Creature;

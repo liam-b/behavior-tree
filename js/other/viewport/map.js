@@ -38,8 +38,8 @@ Map.prototype.getTile = function(x,y){
 
 Map.prototype.draw = function(c) {
 
-	for (x = 0; x < this.width; x++){
-		for (y = 0; y < this.height; y++){
+	for (var x = 0; x < this.width; x++){
+		for (var y = 0; y < this.height; y++){
 			var tile = this.getTile(x,y);
 			c.drawImage(tileImg,300*tile,0,300,300,x*this.tileSize,y*this.tileSize,this.tileSize,this.tileSize);
 
@@ -52,12 +52,12 @@ Map.prototype.draw = function(c) {
 
 		c.beginPath();
 		//Vertical gridlines.
-		for (x = 0; x < this.width; x++){
+		for (var x = 0; x < this.width; x++){
 			c.moveTo(x*this.tileSize,0);
 			c.lineTo(x*this.tileSize,this.height*this.tileSize);
 		}
 		//Horizontal lines
-		for (y = 0; y < this.height; y++){
+		for (var y = 0; y < this.height; y++){
 			c.moveTo(0,y*this.tileSize);
 			c.lineTo(this.width*this.tileSize,y*this.tileSize);
 
@@ -65,3 +65,4 @@ Map.prototype.draw = function(c) {
 		c.stroke();
 	}
 }
+module.exports = Map;
