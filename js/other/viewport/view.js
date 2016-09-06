@@ -4,14 +4,18 @@ function showViewport(canvasElement){
 	canvasElement.setAttribute('width', window.getComputedStyle(canvasElement).width);
 	canvasElement.setAttribute('height', window.getComputedStyle(canvasElement).height);
 
-	var width = canvasElement.width;
-	var height = canvasElement.height;
+	width = canvasElement.width;
+	height = canvasElement.height;
 
-	var activeCreature = new Creature(100,100);
+	var level = new Map();
+	var activeCreature = new Creature(5,5,level);
 
 	function draw(){
 		c.fillStyle = "rgb(57, 59, 57)"
 		c.fillRect(0,0,width,height);
+
+		level.update();
+		level.draw(c);
 
 		activeCreature.update();
 		activeCreature.draw(c);
