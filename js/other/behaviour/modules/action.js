@@ -4,9 +4,24 @@ module.exports = {
       this.distance = distance
     }
 
-    run (creature) {
-      creature.position.x += 10
-      console.log('I moved ' + this.distance.run() + ' steps')
+    run (entity) {
+      var changedDist = this.distance.run(entity)
+      entity.energy -= 1
+      switch (entity.rotation) {
+        case 0:
+          entity.position.y += changedDist
+          break
+        case 1:
+          entity.position.x += changedDist
+          break
+        case 2:
+          entity.position.y -= changedDist
+          break
+        case 3:
+          entity.position.x -= changedDist
+          break
+      }
+      console.log('I moved ' + changedDist + ' steps')
     }
   },
   'sleep': class {
@@ -14,9 +29,9 @@ module.exports = {
       this.time = time
     }
 
-    run (creature) {
-      creature.energy += 10
-      console.log('I slept for ' + this.time.run() + ' minute(s)')
+    run (entity) {
+      entity.energy += this.time.run(entity)
+      console.log('I slept for ' + this.time.run(entity) + ' game update(s)')
     }
   },
   'turn': class {
@@ -24,13 +39,13 @@ module.exports = {
       this.rotation = rotation
     }
 
-    run (creature) {
+    run (entity) {
       if ([0, 1, 2, 3].indexOf(this.rotation) != -1) {
-        creature.rotation = this.rotation
-        console.log('I rotated to direction ' + this.rotation.run())
+        entity.rotation = this.rotation
+        console.log('I rotated to direction ' + this.rotation.run(entity))
       }
       else {
-        creature.rotation = 0
+        entity.rotation = 0
         console.log('I rotated to direction ' + 0)
       }
     }

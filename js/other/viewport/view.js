@@ -10,7 +10,7 @@ module.exports = function (canvasElement){
 	var height = canvasElement.height;
 
 	var level = new Map();
-	var activeCreature = new Creature(5,5,level);
+	var activeCreature = new Creature(0,0,level);
 
 	function draw(){
 		c.fillStyle = "rgb(57, 59, 57)"

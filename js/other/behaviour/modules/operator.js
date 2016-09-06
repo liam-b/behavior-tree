@@ -18,16 +18,16 @@ module.exports = {
       this.min = min
       this.max = max
     }
-    run (creature) {
-      return Math.floor(Math.random() * (this.max.run(creature) - this.min.run(creature) + 1)) + this.min.run(creature)
+    run (entity) {
+      return Math.floor(Math.random() * (this.max.run(entity) - this.min.run(entity) + 1)) + this.min.run(entity)
     }
   },
   'if': class {
     constructor (condition, whenTrue, whenFalse) {
       this.condition = condition
     }
-    run (creature) {
-      iterate((condition) ? whenTrue : whenFalse, creature)
+    run (entity) {
+      iterate((condition) ? whenTrue : whenFalse, entity)
     }
   },
   'loop': class {
@@ -35,9 +35,9 @@ module.exports = {
       this.loops = loops
       this.code = code
     }
-    run (creature) {
+    run (entity) {
       for (var int = 0; int < this.loops; int += 1) {
-        iterate(this.code, creature)
+        iterate(this.code, entity)
       }
     }
   }
