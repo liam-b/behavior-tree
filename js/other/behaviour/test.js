@@ -9,14 +9,14 @@ var myCreature = new Creature({
     y: 0
   }
 }, [
+  new tree.action.sleep(16),
   new tree.action.move(10),
-  new tree.action.sleep(5),
-  new tree.operator.loop(3, [
-    new tree.action.sleep(1),
-    new tree.action.move(2),
-    new tree.action.turn(2)
-  ])
+  new tree.action.turn(1),
+  new tree.action.move(10)
 ])
 
 myCreature.behave()
-console.log(myCreature)
+setTimeout(function () {
+  myCreature.behave()
+}, 2000)
+// console.log(myCreature)

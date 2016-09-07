@@ -7,8 +7,9 @@ class Creature {
 	}
 
   behave () {
-		for (var i in this.behavior) {
-	    this.behavior[i].run(this.entity)
+		for (var i = 0; i < this.behavior.length; i += 1) {
+			this.behavior[i].run(this.entity)
+			console.log(this.entity.log())
 	  }
 	}
 }

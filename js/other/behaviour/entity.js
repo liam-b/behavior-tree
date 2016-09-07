@@ -7,4 +7,8 @@ module.exports = class {
       y: info.position.y
     }
   }
+
+  log () {
+    return 'x: ' + this.position.x + ', y: ' + this.position.y + ', r: ' + this.rotation + ', e: ' + this.energy
+  }
 }
