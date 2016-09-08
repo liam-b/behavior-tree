@@ -4,21 +4,21 @@ module.exports = {
       this.distance = distance
     }
 
-    run (entity) {
-      var changedDist = this.distance.run(entity)
-      entity.energy -= 1
-      switch (entity.rotation) {
-        case 0:
-          entity.position.y += changedDist
+    run (properties) {
+      var changedDist = this.distance.run(properties)
+      properties.energy -= 1
+      switch (properties.rotation) {
+        case 0: //Down
+          properties.position.y += changedDist
           break
-        case 1:
-          entity.position.x += changedDist
+        case 1: //Right
+          properties.position.x += changedDist
           break
-        case 2:
-          entity.position.y -= changedDist
+        case 2: //Up
+          properties.position.y -= changedDist
           break
-        case 3:
-          entity.position.x -= changedDist
+        case 3: // Left
+          properties.position.x -= changedDist
           break
       }
       console.log('I moved ' + changedDist + ' steps')
@@ -29,9 +29,9 @@ module.exports = {
       this.time = time
     }
 
-    run (entity) {
-      entity.energy += this.time.run(entity)
-      console.log('I slept for ' + this.time.run(entity) + ' game update(s)')
+    run (properties) {
+      properties.energy += this.time.run(properties)
+      console.log('I slept for ' + this.time.run(properties) + ' game update(s)')
     }
   },
   'turn': class {
@@ -39,13 +39,13 @@ module.exports = {
       this.rotation = rotation
     }
 
-    run (entity) {
+    run (properties) {
       if ([0, 1, 2, 3].indexOf(this.rotation) != -1) {
-        entity.rotation = this.rotation
-        console.log('I rotated to direction ' + this.rotation.run(entity))
+        properties.rotation = this.rotation
+        console.log('I rotated to direction ' + this.rotation.run(properties))
       }
       else {
-        entity.rotation = 0
+        properties.rotation = 0
         console.log('I rotated to direction ' + 0)
       }
     }
