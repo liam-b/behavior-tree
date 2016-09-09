@@ -2,7 +2,9 @@ const gulp = require('gulp');
 const sourcemaps = require('gulp-sourcemaps');
 const babel = require('gulp-babel');
 const concat = require('gulp-concat');
-var webpack = require('webpack-stream');
+const webpack = require('webpack-stream');
+const livereload = require('gulp-livereload');
+
 
 var filesToMove = [
         'css/**/*.css',
@@ -30,3 +32,8 @@ gulp.task('move', function(){
 });
 
 gulp.task('default', ['js', 'move']);
+
+gulp.task('watch',function (){
+    livereload.listen();
+    gulp.watch(['js/**/*.js','css/**/*.css','assets/**'],['default']);
+})
