@@ -1,20 +1,36 @@
 var img = new Image();
 img.src = "assets/creature.png";
 
+var creatureBrains = require('../behaviour/creature.js');
+var tree = require('../behaviour/tree.js')
+
 var Creature = function(x,y,level){
-	this.x = x;
-	this.y = y;
+
 	this.level = level;
 
-	this.energy = 100;
-	this.health = 100;
+	this.brains = new creatureBrains({
+		energy: 0,
+		rotation: 0,
+		position: {
+			x: x,
+			y: y
+		}
+	}, [
+		new tree.action.turn(1),
+		new tree.action.move(1),
+		new tree.action.turn(0),
+		new tree.action.move(1),
+		new tree.action.sleep(5)
+	])
+
 }
 
 Creature.prototype.update = function() {
-
+	this.brains.behave();
 }
 
 Creature.prototype.draw = function(c) {
-	c.drawImage(img,this.x*this.level.tileSize,this.y*this.level.tileSize,this.level.tileSize,this.level.tileSize);
+	c.drawImage(img,this.brains.properties.position.x*this.level.tileSize,this.brains.properties.position.y*this.level.tileSize,this.level.tileSize,this.level.tileSize);
+	console.log(this.brains.properties.position.x + ":" + this.brains.properties.position.y)
 }
 module.exports = Creature;
