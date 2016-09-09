@@ -11,7 +11,7 @@ class Creature {
 		for (var i = 0; i < this.behavior.length; i += 1) {
 			this.behavior[i].run(this.properties)
 			console.log(this.properties.log())
-	  }
+		}
 	}
 
 	behave () {

@@ -16,34 +16,9 @@ var Creature = function(x,y,level){
 			y: y
 		}
 	}, [
-		// new tree.action.turn(1),
-		// new tree.action.move(1),
-		// new tree.action.turn(0),
-		// new tree.action.move(1),
-		// new tree.action.sleep(5)
-		new tree.action.turn(0),
-	  new tree.action.move(1),
-		new tree.action.move(1),
 		new tree.action.turn(1),
-	  new tree.action.move(1),
 		new tree.action.move(1),
 		new tree.action.turn(2),
-	  new tree.action.move(1),
-		new tree.action.move(1),
-		new tree.action.turn(1),
-	  new tree.action.move(1),
-		new tree.action.move(1),
-		new tree.action.turn(0),
-	  new tree.action.move(1),
-		new tree.action.move(1),
-		new tree.action.turn(3),
-	  new tree.action.move(1),
-		new tree.action.move(1),
-		new tree.action.turn(2),
-	  new tree.action.move(1),
-		new tree.action.move(1),
-		new tree.action.turn(3),
-	  new tree.action.move(1),
 		new tree.action.move(1)
 	])
 
@@ -54,7 +29,13 @@ Creature.prototype.update = function() {
 }
 
 Creature.prototype.draw = function(c) {
-	c.drawImage(img,this.brains.properties.position.x*this.level.tileSize,this.brains.properties.position.y*this.level.tileSize,this.level.tileSize,this.level.tileSize);
-	console.log(this.brains.properties.position.x + ":" + this.brains.properties.position.y)
+	c.save();
+	// c.translate(this.brains.properties.position.x*this.level.tileSize,this.brains.properties.position.y*this.level.tileSize);
+	c.translate(this.brains.properties.position.x*this.level.tileSize+this.level.tileSize/2,this.brains.properties.position.y*this.level.tileSize+this.level.tileSize/2);
+	c.rotate(this.brains.properties.rotation*90 * (Math.PI / 180));
+	c.translate(-this.level.tileSize/2,-this.level.tileSize/2);
+	c.drawImage(img,0,0,this.level.tileSize,this.level.tileSize);
+	c.restore();
+
 }
 module.exports = Creature;

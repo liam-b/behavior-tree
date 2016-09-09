@@ -12,13 +12,13 @@ module.exports = {
       properties.energy -= changedDist
       switch (parseInt(properties.rotation)) {
         case 0:
-          properties.position.y += changedDist
+          properties.position.y -= changedDist
           break
         case 1:
           properties.position.x += changedDist
           break
         case 2:
-          properties.position.y -= changedDist
+          properties.position.y += changedDist
           break
         case 3:
           properties.position.x -= changedDist
