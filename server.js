@@ -5,7 +5,7 @@ const gulp = require('gulp');
 
 app.use(express.static('dist'));
 
-app.listen(80, function () {
+app.listen(8080, function () {
   console.log('Server app listening on port 80!');
 });
 

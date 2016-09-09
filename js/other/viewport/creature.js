@@ -2,7 +2,7 @@ var img = new Image();
 img.src = "assets/creature.png";
 
 var creatureBrains = require('../behaviour/creature.js');
-var tree = require('../behaviour/tree.js')
+var tree = require('../behaviour/tree.js');
 
 var Creature = function(x,y,level){
 
@@ -19,7 +19,8 @@ var Creature = function(x,y,level){
 		new tree.action.turn(1),
 		new tree.action.move(1),
 		new tree.action.turn(2),
-		new tree.action.move(1)
+		new tree.action.move(1),
+		new tree.action.turn(0)
 	])
 
 }
