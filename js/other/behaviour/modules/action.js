@@ -32,8 +32,6 @@ module.exports = {
     }
     run (properties) {
       properties.energy += Math.abs(this.time.run(properties))
-      // console.log('I slept for ' +  Math.abs(this.time.run(properties)) + ' game update(s)')
-      // console.log('I slept for ' + this.time.run(properties) + ' game update(s)')
     }
   },
   'turn': class {
@@ -43,10 +41,6 @@ module.exports = {
 
     run (properties) {
       properties.rotation = this.rotation.run(properties)
-      // if ([0, 1, 2, 3].indexOf(this.rotation) != -1) {
-      //   properties.rotation = this.rotation
-      //   // console.log('I rotated to direction ' + this.rotation.run(properties))
-      // }
     }
   }
 }
