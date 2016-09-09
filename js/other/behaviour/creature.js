@@ -12,20 +12,20 @@ class Creature {
 			this.behavior[i].run(this.properties)
 			console.log(this.properties.log())
 	  }
-		this.properties = new Properties(info)
+		// this.properties = new Properties(info)
 	}
 
-  behave () {
-		for (var i in this.behavior) {
-			this.behavior[i].run(this.properties)
-		}
-	}
+  // behave () {
+	// 	for (var i in this.behavior) {
+	// 		this.behavior[i].run(this.properties)
+	// 	}
+	// }
 
 	behave () {
 		if (this.iter >= this.behavior.length) this.iter = 0
 		this.behavior[this.iter].run(this.properties)
 		this.iter += 1
-		console.log(this.properties.log())
+		console.log('info', this.properties.log())
 	}
 }
 

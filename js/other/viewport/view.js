@@ -12,7 +12,7 @@ module.exports = function (canvasElement){
 	var level = new Map();
 	var activeCreature = new Creature(0,0,level);
 
-	function draw(){
+	function draw() {
 		c.fillStyle = "rgb(57, 59, 57)"
 		c.fillRect(0,0,width,height);
 
@@ -22,7 +22,9 @@ module.exports = function (canvasElement){
 		activeCreature.update();
 		activeCreature.draw(c);
 
-		requestAnimationFrame(draw);
+		setTimeout(function () {
+			requestAnimationFrame(draw);
+		}, 100);
 	}
 	requestAnimationFrame(draw);
 }

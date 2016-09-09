@@ -9,13 +9,9 @@ var myCreature = new Creature({
     y: 0
   }
 }, [
-  new tree.action.sleep(16),
-  new tree.action.move(10),
   new tree.action.turn(1),
-  new tree.action.move(10)
+  new tree.action.sleep(1),
+  new tree.action.move(1),
 ])
 
-setInterval(function () {
-  myCreature.behave()
-}, 200)
-// console.log(myCreature)
+myCreature.behave()

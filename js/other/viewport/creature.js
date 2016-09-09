@@ -9,18 +9,42 @@ var Creature = function(x,y,level){
 	this.level = level;
 
 	this.brains = new creatureBrains({
-		energy: 0,
+		energy: 1000,
 		rotation: 0,
 		position: {
 			x: x,
 			y: y
 		}
 	}, [
+		// new tree.action.turn(1),
+		// new tree.action.move(1),
+		// new tree.action.turn(0),
+		// new tree.action.move(1),
+		// new tree.action.sleep(5)
+		new tree.action.turn(0),
+	  new tree.action.move(1),
+		new tree.action.move(1),
 		new tree.action.turn(1),
+	  new tree.action.move(1),
+		new tree.action.move(1),
+		new tree.action.turn(2),
+	  new tree.action.move(1),
+		new tree.action.move(1),
+		new tree.action.turn(1),
+	  new tree.action.move(1),
 		new tree.action.move(1),
 		new tree.action.turn(0),
+	  new tree.action.move(1),
 		new tree.action.move(1),
-		new tree.action.sleep(5)
+		new tree.action.turn(3),
+	  new tree.action.move(1),
+		new tree.action.move(1),
+		new tree.action.turn(2),
+	  new tree.action.move(1),
+		new tree.action.move(1),
+		new tree.action.turn(3),
+	  new tree.action.move(1),
+		new tree.action.move(1)
 	])
 
 }
