@@ -15,8 +15,7 @@ var myCreature = new Creature({
   new tree.action.move(10)
 ])
 
-myCreature.behave()
-setTimeout(function () {
+setInterval(function () {
   myCreature.behave()
-}, 2000)
+}, 200)
 // console.log(myCreature)

@@ -4,13 +4,21 @@ class Creature {
 	constructor (info, behavior) {
 		this.behavior = behavior
 		this.entity = new Entity(info)
+		this.iter = 0
 	}
 
-  behave () {
+  behaveLoop () {
 		for (var i = 0; i < this.behavior.length; i += 1) {
 			this.behavior[i].run(this.entity)
 			console.log(this.entity.log())
 	  }
+	}
+
+	behave () {
+		if (this.iter >= this.behavior.length) this.iter = 0
+		this.behavior[this.iter].run(this.entity)
+		this.iter += 1
+		console.log(this.entity.log())
 	}
 }
 
