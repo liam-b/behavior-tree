@@ -4,29 +4,30 @@ module.exports = {
       this.distance = distance
     }
 
-<<<<<<< HEAD
-    run (entity) {
-      var changedDist = this.distance.run(entity)
-      if (entity.energy - changedDist < 0) {
-        changedDist = entity.energy
+    run (properties) {
+      var changedDist = this.distance.run(properties)
+      if (properties.energy - changedDist < 0) {
+        changedDist = properties.energy
       }
-      entity.energy -= changedDist
-      switch (entity.rotation) {
+      properties.energy -= changedDist
+      switch (properties.rotation) {
         case 0:
-          entity.position.y += changedDist
+          properties.position.y += changedDist
           break
         case 1:
         case 90:
-          entity.position.x += changedDist
+          properties.position.x += changedDist
           break
         case 2:
         case 180:
-          entity.position.y -= changedDist
+          properties.position.y -= changedDist
           break
         case 3:
         case 270:
-          entity.position.x -= changedDist
-=======
+          properties.position.x -= changedDist
+          break
+      }
+    }
     run (properties) {
       var changedDist = this.distance.run(properties)
       properties.energy -= 1
@@ -42,7 +43,6 @@ module.exports = {
           break
         case 3: // Left
           properties.position.x -= changedDist
->>>>>>> 8a4601e6a930bdc422a9ac5c9aa12c9a3ac39c34
           break
       }
       // console.log('I moved ' + changedDist + ' steps')
@@ -52,16 +52,10 @@ module.exports = {
     constructor (time) {
       this.time = time
     }
-
-<<<<<<< HEAD
-    run (entity) {
-      entity.energy += Math.abs(this.time.run(entity))
-      // console.log('I slept for ' +  Math.abs(this.time.run(entity)) + ' game update(s)')
-=======
     run (properties) {
-      properties.energy += this.time.run(properties)
-      console.log('I slept for ' + this.time.run(properties) + ' game update(s)')
->>>>>>> 8a4601e6a930bdc422a9ac5c9aa12c9a3ac39c34
+      properties.energy += Math.abs(this.time.run(properties))
+      // console.log('I slept for ' +  Math.abs(this.time.run(properties)) + ' game update(s)')
+      // console.log('I slept for ' + this.time.run(properties) + ' game update(s)')
     }
   },
   'turn': class {
@@ -71,22 +65,16 @@ module.exports = {
 
     run (properties) {
       if ([0, 1, 2, 3].indexOf(this.rotation) != -1) {
-<<<<<<< HEAD
-        entity.rotation = this.rotation
-        // console.log('I rotated to direction ' + this.rotation.run(entity))
-      }
-      else {
-        entity.rotation = 0
-        // console.log('I rotated to direction ' + 0)
-=======
         properties.rotation = this.rotation
-        console.log('I rotated to direction ' + this.rotation.run(properties))
+        // console.log('I rotated to direction ' + this.rotation.run(properties))
       }
       else {
         properties.rotation = 0
-        console.log('I rotated to direction ' + 0)
->>>>>>> 8a4601e6a930bdc422a9ac5c9aa12c9a3ac39c34
+        // console.log('I rotated to direction ' + 0)
+        properties.rotation = this.rotation
+        // console.log('I rotated to direction ' + this.rotation.run(properties))
       }
+      properties.rotation = 0
     }
   }
 }

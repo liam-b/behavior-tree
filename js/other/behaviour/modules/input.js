@@ -4,13 +4,13 @@ module.exports = {
       this.rotation = rotation
     }
 
-    run (entity) {
+    run (properties) {
       if ([0, 1, 2, 3].indexOf(this.rotation) != -1) {
-        entity.rotation = this.rotation
-        // console.log('I rotated to direction ' + this.rotation.run(entity))
+        properties.rotation = this.rotation
+        // console.log('I rotated to direction ' + this.rotation.run(properties))
       }
       else {
-        entity.rotation = 0
+        properties.rotation = 0
         // console.log('I rotated to direction ' + 0)
       }
     }
