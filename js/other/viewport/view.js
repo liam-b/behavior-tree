@@ -1,30 +1,34 @@
-const Creature = require('./creature.js');
 const Map = require('./map.js');
-module.exports = function (canvasElement){
-	var c = canvasElement.getContext('2d');
+var View = function(canvasElement) {
+	this.c = canvasElement.getContext('2d');
 
 	canvasElement.setAttribute('width', window.getComputedStyle(canvasElement).width);
 	canvasElement.setAttribute('height', window.getComputedStyle(canvasElement).height);
 
-	var width = canvasElement.width;
-	var height = canvasElement.height;
+	this.width = canvasElement.width;
+	this.height = canvasElement.height;
 
-	var level = new Map();
-	var activeCreature = new Creature(0,0,level);
+	this.level = new Map();
 
-	function draw() {
-		c.fillStyle = "rgb(57, 59, 57)"
-		c.fillRect(0,0,width,height);
+	this.sceneEntities = [];
 
-		level.update();
-		level.draw(c);
-
-		activeCreature.update();
-		activeCreature.draw(c);
-
-		setTimeout(function () {
-			requestAnimationFrame(draw);
-		}, 100);
-	}
-	requestAnimationFrame(draw);
+	// requestAnimationFrame(this.draw);
 }
+
+View.prototype.draw = function() {
+	this.c.fillStyle = "rgb(57, 59, 57)"
+	this.c.fillRect(0,0,this.width,this.height);
+
+	this.level.update();
+	this.level.draw(this.c);
+
+	for (var i = 0; i < this.sceneEntities.length; i++){
+		this.sceneEntities[i].update();
+		this.sceneEntities[i].draw(this.c);
+
+	}
+
+
+
+}
+module.exports = View;
