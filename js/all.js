@@ -56,17 +56,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 	__webpack_require__(2);
 	__webpack_require__(3);
 	__webpack_require__(4);
-	__webpack_require__(14);
+	__webpack_require__(5);
+	__webpack_require__(15);
 	__webpack_require__(7);
 	__webpack_require__(8);
-	__webpack_require__(15);
+	__webpack_require__(16);
 	__webpack_require__(9);
 	__webpack_require__(6);
-	__webpack_require__(13);
-	__webpack_require__(16);
-	__webpack_require__(5);
-	__webpack_require__(10);
+	__webpack_require__(14);
 	__webpack_require__(17);
+	__webpack_require__(13);
+	__webpack_require__(10);
+	__webpack_require__(18);
 	__webpack_require__(12);
 	module.exports = __webpack_require__(11);
 
@@ -75,20 +76,51 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /* 1 */
 /***/function (module, exports) {
 
-	angular.module('creatureSim', ['SimulationService', 'GenerationsCtrl', 'BrainCtrl', 'SimulationCtrl']);
+	angular.module('creatureSim', ['SimulationService', 'GenerationsCtrl', 'BrainCtrl', 'DevCtrl', 'SimulationCtrl']);
 
 	/***/
 },
 /* 2 */
 /***/function (module, exports) {
 
-	angular.module('BrainCtrl', []).controller('BrainController', function ($scope, Simulation) {
-		$scope.Brain = {};
+	angular.module('BrainCtrl', []).controller('BrainController', function ($timeout, $scope, Simulation) {
+		$scope.brain = Simulation.latestCreature().brains;
+		console.log(Simulation.latestCreature());
+
+		$scope.$watch(function () {
+			return Simulation.latestCreature().brains;
+		}, function (newVal, oldVal) {
+			$scope.brain = Simulation.latestCreature().brains;
+		}, true);
 	});
 
 	/***/
 },
 /* 3 */
+/***/function (module, exports) {
+
+	angular.module('DevCtrl', []).controller('DevController', function ($scope, Simulation) {
+		$scope.expanded = false;
+		$scope.playing = true;
+		$scope.options = {
+			speed: 100
+		};
+		$scope.toggleExpansion = function () {
+			$scope.expanded = !$scope.expanded;
+		};
+		$scope.togglePlaying = function () {
+			$scope.playing = !$scope.playing;
+			Simulation.options.playing = $scope.playing;
+		};
+		$scope.changeSpeed = function () {
+			console.log($scope.options.speed);
+			Simulation.options.speed = $scope.options.speed;
+		};
+	});
+
+	/***/
+},
+/* 4 */
 /***/function (module, exports) {
 
 	angular.module('GenerationsCtrl', []).controller('GenerationsController', function ($scope, Simulation) {
@@ -99,50 +131,34 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 	/***/
 },
-/* 4 */
-/***/function (module, exports, __webpack_require__) {
-
-	angular.module('SimulationCtrl', []).controller('SimulationController', function ($scope, Simulation) {
-		var view = __webpack_require__(5);
-		console.log(view);
-		view(document.getElementById('simulationCanvas'));
-	});
-
-	/***/
-},
 /* 5 */
 /***/function (module, exports, __webpack_require__) {
 
 	var Creature = __webpack_require__(6);
-	var Map = __webpack_require__(13);
-	module.exports = function (canvasElement) {
-		var c = canvasElement.getContext('2d');
+	var View = __webpack_require__(13);
 
-		canvasElement.setAttribute('width', window.getComputedStyle(canvasElement).width);
-		canvasElement.setAttribute('height', window.getComputedStyle(canvasElement).height);
+	angular.module('SimulationCtrl', []).controller('SimulationController', function ($scope, Simulation) {
 
-		var width = canvasElement.width;
-		var height = canvasElement.height;
+		var viewport = new View(document.getElementById('simulationCanvas'));
 
-		var level = new Map();
-		var activeCreature = new Creature(0, 0, level);
+		var creature = new Creature(0, 0, viewport.level);
+		Simulation.creatures.push(creature);
+		viewport.sceneEntities = [creature];
 
-		function draw() {
-			c.fillStyle = "rgb(57, 59, 57)";
-			c.fillRect(0, 0, width, height);
+		viewport.draw();
 
-			level.update();
-			level.draw(c);
-
-			activeCreature.update();
-			activeCreature.draw(c);
+		function tick() {
+			if (Simulation.options.playing) {
+				Simulation.creatures = [creature];
+				viewport.draw();
+			}
 
 			setTimeout(function () {
-				requestAnimationFrame(draw);
-			}, 100);
+				tick();
+			}, 10000 / Simulation.options.speed);
 		}
-		requestAnimationFrame(draw);
-	};
+		tick();
+	});
 
 	/***/
 },
@@ -160,19 +176,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 		this.level = level;
 
 		this.brains = new creatureBrains({
-			energy: 1000,
+			energy: 100,
 			rotation: 0,
 			position: {
 				x: x,
 				y: y
 			}
-		}, [
-		// new tree.action.turn(1),
-		// new tree.action.move(1),
-		// new tree.action.turn(0),
-		// new tree.action.move(1),
-		// new tree.action.sleep(5)
-		new tree.action.turn(0), new tree.action.move(1), new tree.action.move(1), new tree.action.turn(1), new tree.action.move(1), new tree.action.move(1), new tree.action.turn(2), new tree.action.move(1), new tree.action.move(1), new tree.action.turn(1), new tree.action.move(1), new tree.action.move(1), new tree.action.turn(0), new tree.action.move(1), new tree.action.move(1), new tree.action.turn(3), new tree.action.move(1), new tree.action.move(1), new tree.action.turn(2), new tree.action.move(1), new tree.action.move(1), new tree.action.turn(3), new tree.action.move(1), new tree.action.move(1)]);
+		}, [new tree.action.turn(1), new tree.action.move(1), new tree.action.turn(2), new tree.action.move(1)]);
 	};
 
 	Creature.prototype.update = function () {
@@ -180,8 +190,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 	};
 
 	Creature.prototype.draw = function (c) {
-		c.drawImage(img, this.brains.properties.position.x * this.level.tileSize, this.brains.properties.position.y * this.level.tileSize, this.level.tileSize, this.level.tileSize);
-		console.log(this.brains.properties.position.x + ":" + this.brains.properties.position.y);
+		c.save();
+		// c.translate(this.brains.properties.position.x*this.level.tileSize,this.brains.properties.position.y*this.level.tileSize);
+		c.translate(this.brains.properties.position.x * this.level.tileSize + this.level.tileSize / 2, this.brains.properties.position.y * this.level.tileSize + this.level.tileSize / 2);
+		c.rotate(this.brains.properties.rotation * 90 * (Math.PI / 180));
+		c.translate(-this.level.tileSize / 2, -this.level.tileSize / 2);
+		c.drawImage(img, 0, 0, this.level.tileSize, this.level.tileSize);
+		c.restore();
 	};
 	module.exports = Creature;
 
@@ -208,22 +223,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					this.behavior[i].run(this.properties);
 					console.log(this.properties.log());
 				}
-				// this.properties = new Properties(info)
 			}
-
-			// behave () {
-			// 	for (var i in this.behavior) {
-			// 		this.behavior[i].run(this.properties)
-			// 	}
-			// }
-
 		}, {
 			key: 'behave',
 			value: function behave() {
 				if (this.iter >= this.behavior.length) this.iter = 0;
 				this.behavior[this.iter].run(this.properties);
 				this.iter += 1;
-				console.log('info', this.properties.log());
+				//console.log('info', this.properties.log())
 			}
 		}]);
 
@@ -285,6 +292,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				_classCallCheck(this, move);
 
 				this.distance = distance;
+				this.type = 'move';
 			}
 
 			_createClass(move, [{
@@ -297,13 +305,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					properties.energy -= changedDist;
 					switch (parseInt(properties.rotation)) {
 						case 0:
-							properties.position.y += changedDist;
+							properties.position.y -= changedDist;
 							break;
 						case 1:
 							properties.position.x += changedDist;
 							break;
 						case 2:
-							properties.position.y -= changedDist;
+							properties.position.y += changedDist;
 							break;
 						case 3:
 							properties.position.x -= changedDist;
@@ -319,14 +327,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				_classCallCheck(this, sleep);
 
 				this.time = time;
+				this.type = 'sleep';
 			}
 
 			_createClass(sleep, [{
 				key: 'run',
 				value: function run(properties) {
 					properties.energy += Math.abs(this.time.run(properties));
-					// console.log('I slept for ' +  Math.abs(this.time.run(properties)) + ' game update(s)')
-					// console.log('I slept for ' + this.time.run(properties) + ' game update(s)')
 				}
 			}]);
 
@@ -337,16 +344,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				_classCallCheck(this, turn);
 
 				this.rotation = rotation;
+				this.type = 'turn';
 			}
 
 			_createClass(turn, [{
 				key: 'run',
 				value: function run(properties) {
 					properties.rotation = this.rotation.run(properties);
-					// if ([0, 1, 2, 3].indexOf(this.rotation) != -1) {
-					//   properties.rotation = this.rotation
-					//   // console.log('I rotated to direction ' + this.rotation.run(properties))
-					// }
 				}
 			}]);
 
@@ -515,6 +519,42 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 	/***/
 },
 /* 13 */
+/***/function (module, exports, __webpack_require__) {
+
+	var Map = __webpack_require__(14);
+	var View = function View(canvasElement) {
+		this.c = canvasElement.getContext('2d');
+
+		canvasElement.setAttribute('width', window.getComputedStyle(canvasElement).width);
+		canvasElement.setAttribute('height', window.getComputedStyle(canvasElement).height);
+
+		this.width = canvasElement.width;
+		this.height = canvasElement.height;
+
+		this.level = new Map();
+
+		this.sceneEntities = [];
+
+		// requestAnimationFrame(this.draw);
+	};
+
+	View.prototype.draw = function () {
+		this.c.fillStyle = "rgb(57, 59, 57)";
+		this.c.fillRect(0, 0, this.width, this.height);
+
+		this.level.update();
+		this.level.draw(this.c);
+
+		for (var i = 0; i < this.sceneEntities.length; i++) {
+			this.sceneEntities[i].update();
+			this.sceneEntities[i].draw(this.c);
+		}
+	};
+	module.exports = View;
+
+	/***/
+},
+/* 14 */
 /***/function (module, exports) {
 
 	var tileImg = new Image();
@@ -572,21 +612,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 	/***/
 },
-/* 14 */
+/* 15 */
 /***/function (module, exports) {
 
 	angular.module('SimulationService', []).factory('Simulation', [function () {
 
-		var creatures = {}; //Perhaps store in a tree like format, showing inheritence and mutation?
+		var creatures = []; //Perhaps store in a tree like format, showing inheritence and mutation?
+		var options = {
+			playing: true,
+			speed: 10 //Updates per second.
+		};
 
 		return {
+			latestCreature: function latestCreature() {
+				return creatures[0];
+			},
+			options: options,
 			creatures: creatures
 		};
 	}]);
 
 	/***/
 },
-/* 15 */
+/* 16 */
 /***/function (module, exports, __webpack_require__) {
 
 	var Creature = __webpack_require__(7);
@@ -605,11 +653,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 	/***/
 },
-/* 16 */
+/* 17 */
 /***/function (module, exports) {
 
 	/***/},
-/* 17 */
+/* 18 */
 /***/function (module, exports) {
 
 	module.exports = {
@@ -625,10 +673,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				value: function run(properties) {
 					if ([0, 1, 2, 3].indexOf(this.rotation) != -1) {
 						properties.rotation = this.rotation;
-						// console.log('I rotated to direction ' + this.rotation.run(properties))
 					} else {
 						properties.rotation = 0;
-						// console.log('I rotated to direction ' + 0)
 					}
 				}
 			}]);

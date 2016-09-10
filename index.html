@@ -15,23 +15,46 @@
 				</canvas>
 			</div>
 			<div id="creatureBrain" ng-controller="BrainController">
+				x: {{brain.properties.position.x}}, y: {{brain.properties.position.y}} <br>
+				rotation: {{brain.properties.rotation}}
+					<span ng-if="brain.properties.rotation == 0">↑</span>
+					<span ng-if="brain.properties.rotation == 1">→</span>
+					<span ng-if="brain.properties.rotation == 2">↓</span>
+					<span ng-if="brain.properties.rotation == 3">←</span>
+
+				 <br>
+				energy: {{brain.properties.energy}}
+				<hr>
 				<ul>
-					<li>Walk (5)</li>
-					<li>Sleep ()</li>
-					<li>rotate (90)</li>
+					<li ng-repeat="module in brain.behavior">
+						{{ module.type }}
+
+					</li>
 				</ul>
 			</div>
 			<div id="generations" ng-controller="GenerationsController">
 				<ul>
 					<li>Generation 1</li>
-					<li>Generation 2</li>
-					<li>Generation 3</li>
-					<li>Generation 4</li>
-					<li>Generation 5</li>
 				</ul>
 			</div>
 
         	<div style="clear: both;"></div> <!--http://tinyurl.com/hwjv3od-->
+
+			<div id="devPanel" ng-controller="DevController">
+				<h3 ng-click="toggleExpansion()" class="noselect clickable">Creature Simulator</h3>
+
+				<div ng-if="expanded">
+					<hr>
+
+					Speed:
+					<input type="number" name="speed" min="1" max="1000" value="10" ng-change="changeSpeed()" ng-model="options.speed"> </input>
+
+					<span class="noselect button" ng-click="togglePlaying()">
+						<span ng-if="playing">❚❚</span>
+						<span ng-if="!playing">►</span>
+					</span>
+				</div>
+			</div>
 		</div>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
