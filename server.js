@@ -6,7 +6,7 @@ const gulp = require('gulp');
 app.use(express.static('dist'));
 
 app.listen(8080, function () {
-  console.log('Server app listening on port 80!');
+  console.log('Server app listening on port 8080!');
 });
 
-gulp.start(['watch']);
+gulp.start(['default','watch']);

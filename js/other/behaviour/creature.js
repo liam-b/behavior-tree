@@ -18,7 +18,7 @@ class Creature {
 		if (this.iter >= this.behavior.length) this.iter = 0
 		this.behavior[this.iter].run(this.properties)
 		this.iter += 1
-		console.log('info', this.properties.log())
+		//console.log('info', this.properties.log())
 	}
 }
 

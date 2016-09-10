@@ -15,10 +15,14 @@
 				</canvas>
 			</div>
 			<div id="creatureBrain" ng-controller="BrainController">
+				x: {{brain.properties.position.x}}, y: {{brain.properties.position.y}} <br>
+				rotation: {{brain.properties.rotation}} <br>
+				energy: {{brain.properties.energy}}
+				<hr>
 				<ul>
-					<li>Walk (5)</li>
-					<li>Sleep ()</li>
-					<li>rotate (90)</li>
+					<li ng-repeat="module in brain.behavior">
+						{{ module.type }}
+					</li>
 				</ul>
 			</div>
 			<div id="generations" ng-controller="GenerationsController">

@@ -34,6 +34,12 @@ ul {
 	margin: 0;
 	padding: 0;
 }
+hr {
+	border: 0;
+	height: 1px;
+	background: #333;
+	background-image: linear-gradient(to right, rgba(150, 150, 150, 0.5), rgba(200,200,200, .8), rgba(150, 150, 150, 0.5));
+}
 
 #simulation {
 	background-color: rgb(192, 179, 203);

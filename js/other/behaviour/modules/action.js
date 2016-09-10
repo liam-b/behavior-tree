@@ -2,6 +2,7 @@ module.exports = {
   'move': class {
     constructor (distance) {
       this.distance = distance
+      this.type = 'move'
     }
 
     run (properties) {
@@ -29,6 +30,7 @@ module.exports = {
   'sleep': class {
     constructor (time) {
       this.time = time
+      this.type = 'sleep'
     }
     run (properties) {
       properties.energy += Math.abs(this.time.run(properties))
@@ -37,6 +39,7 @@ module.exports = {
   'turn': class {
     constructor (rotation) {
       this.rotation = rotation
+      this.type = 'turn'
     }
 
     run (properties) {

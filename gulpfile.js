@@ -35,5 +35,5 @@ gulp.task('default', ['js', 'move']);
 
 gulp.task('watch',function (){
     livereload.listen();
-    gulp.watch(['js/**/*.js','css/**/*.css','assets/**'],['default']);
+    gulp.watch(['js/**/*.js','css/**/*.css','assets/**','index.html'],['default']);
 })

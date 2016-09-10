@@ -5,10 +5,14 @@ angular.module('SimulationCtrl',[]).controller('SimulationController', function(
 
 	var viewport = new View(document.getElementById('simulationCanvas'));
 
-	var activeCreature = new Creature(0,0,viewport.level);
-	viewport.sceneEntities.push(activeCreature);
+	var creature = new Creature(0,0,viewport.level);
+	Simulation.creatures.push(creature);
+	viewport.sceneEntities = [creature];
+
 	viewport.draw();
 	setInterval(function () {
+		Simulation.creatures = [creature];
+		$scope.$apply();
 		viewport.draw();
 	}, 100);
 });
