@@ -10,9 +10,14 @@ angular.module('SimulationCtrl',[]).controller('SimulationController', function(
 	viewport.sceneEntities = [creature];
 
 	viewport.draw();
-	setInterval(function () {
-		Simulation.creatures = [creature];
-		$scope.$apply();
-		viewport.draw();
-	}, 100);
+
+	function tick() {
+		if (Simulation.options.playing){
+			Simulation.creatures = [creature];
+			viewport.draw();
+		}
+
+	    setTimeout(function() { tick(); }, 10000/Simulation.options.speed);
+	}
+	tick();
 });

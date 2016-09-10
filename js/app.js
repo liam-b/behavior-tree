@@ -1,1 +1,1 @@
-angular.module('creatureSim', ['SimulationService', 'GenerationsCtrl','BrainCtrl','SimulationCtrl']);
+angular.module('creatureSim', ['SimulationService', 'GenerationsCtrl','BrainCtrl','DevCtrl','SimulationCtrl']);
