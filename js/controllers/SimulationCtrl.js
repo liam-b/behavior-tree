@@ -13,11 +13,13 @@ angular.module('SimulationCtrl',[]).controller('SimulationController', function(
 
 	function tick() {
 		if (Simulation.options.playing){
-			Simulation.creatures = [creature];
+			if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest') {
+			    $scope.$apply();
+			}
 			viewport.draw();
 		}
 
-	    setTimeout(function() { tick(); }, 10000/Simulation.options.speed);
+	    setTimeout(function() { tick(); }, 1000/Simulation.options.speed);
 	}
 	tick();
 });
