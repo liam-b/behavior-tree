@@ -1,12 +1,14 @@
 module.exports = {
   'move': class {
     constructor (distance) {
-      this.distance = distance
       this.type = 'move'
+      this.paramaters = {
+        'distance': distance
+      }
     }
 
     run (properties) {
-      var changedDist = this.distance.run(properties)
+      var changedDist = this.paramaters.distance.run(properties)
       if (properties.energy - changedDist < 0) {
         changedDist = properties.energy
       }
@@ -29,21 +31,25 @@ module.exports = {
   },
   'sleep': class {
     constructor (time) {
-      this.time = time
       this.type = 'sleep'
+      this.paramaters = {
+        'time': time
+      }
     }
     run (properties) {
-      properties.energy += Math.abs(this.time.run(properties))
+      properties.energy += Math.abs(this.paramaters.time.run(properties))
     }
   },
   'turn': class {
     constructor (rotation) {
-      this.rotation = rotation
       this.type = 'turn'
+      this.paramaters = {
+        'rotation': rotation
+      }
     }
 
     run (properties) {
-      properties.rotation = this.rotation.run(properties)
+      properties.rotation = this.paramaters.rotation.run(properties)
     }
   }
 }

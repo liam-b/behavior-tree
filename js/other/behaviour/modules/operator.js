@@ -15,11 +15,11 @@ module.exports = {
   },
   'random': class {
     constructor (min, max) {
-      this.min = min
-      this.max = max
+      this.value = min
+      this.value2 = max
     }
     run (properties) {
-      return Math.floor(Math.random() * (this.max.run(properties) - this.min.run(properties) + 1)) + this.min.run(properties)
+      return Math.floor(Math.random() * (this.value2.run(properties) - this.value.run(properties) + 1)) + this.value.run(properties)
     }
   },
   'if': class {
@@ -32,12 +32,12 @@ module.exports = {
   },
   'loop': class {
     constructor (loops, code) {
-      this.loops = loops
-      this.code = code
+      this.value = loops
+      this.nest = code
     }
     run (properties) {
-      for (var int = 0; int < this.loops; int += 1) {
-        iterate(this.code, properties)
+      for (var int = 0; int < this.value; int += 1) {
+        iterate(this.nest, properties)
       }
     }
   }
