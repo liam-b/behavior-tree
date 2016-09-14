@@ -9,6 +9,7 @@ const livereload = require('gulp-livereload');
 var filesToMove = [
         'css/**/*.css',
         'assets/**',
+        'module.html',
         'index.html'
     ];
 
@@ -35,5 +36,5 @@ gulp.task('default', ['js', 'move']);
 
 gulp.task('watch',function (){
     livereload.listen();
-    gulp.watch(['js/**/*.js','css/**/*.css','assets/**','index.html'],['default']);
+    gulp.watch(['js/**/*.js','css/**/*.css','assets/**','module.html','index.html'],['default']);
 })

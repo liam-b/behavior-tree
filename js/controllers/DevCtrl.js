@@ -2,7 +2,7 @@ angular.module('DevCtrl',[]).controller('DevController', function($scope,Simulat
 	$scope.expanded = false;
 	$scope.playing = true;
 	$scope.options = {
-		speed: 100
+		speed: 10
 	}
 	$scope.toggleExpansion = function (){
 		$scope.expanded = !$scope.expanded;

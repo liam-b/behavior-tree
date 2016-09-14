@@ -1,0 +1,13 @@
+<li>{{ $parent.module.type }}
+
+	<span ng-if="$parent.type != undefined">
+		:
+	</span>
+	<!-- {{ $parent.module.type }} -->
+
+	<div class="tab">
+		{{ $parent.type }}
+		<li ng-repeat="(type, module) in module.paramaters" class="tab" ng-include="'/module.html'"></li>
+	</div>
+
+</li>

@@ -14,6 +14,10 @@ body {
 	background-image: url("../assets/abstract geom.svg");
 }
 
+.tab {
+	padding-left:2em
+}
+
 .layout {
 	width: calc(100% - 80px);
 	/*background-color: rgb(78, 47, 65);*/
