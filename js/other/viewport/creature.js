@@ -16,8 +16,8 @@ var Creature = function(x,y,level){
 			y: y
 		}
 	}, [
-		new tree.action.turn(1),
-		new tree.action.move(1),
+    new tree.action.turn(1),
+    new tree.operator.loop(10, [new tree.action.move(10)]),
 		new tree.action.turn(2),
 		new tree.action.move(1)
 	])

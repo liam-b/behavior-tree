@@ -35,13 +35,17 @@ module.exports = {
   },
   'loop': class {
     constructor (loops, code) {
-      this.value = loops
-      this.nest = code
       this.type = 'loop'
+      this.paramaters = {
+        'loops': loops,
+        'nest': code
+      }
     }
     run (properties) {
-      for (var int = 0; int < this.value; int += 1) {
-        iterate(this.nest, properties)
+      for (var int = 0; int < this.paramaters.loop; int += 1) {
+        for (var i in this.paramaters.nest) {
+          this.paramaters.nest[i].run(properties)
+        }
       }
     }
   }
