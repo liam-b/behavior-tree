@@ -21,27 +21,3 @@
 <div class="tab">
 
 <hr>
-
-@S@
-<li>
-	<div class="tab">
-		{<br>
-		{{ $parent.type }}
-		<div class="tab">
-			{<br>
-			{{ $parent.module.type }}
-
-			<!-- <span ng-if="$parent.type != undefined">
-				:
-			</span> -->
-
-			<div class="tab">
-				<li ng-repeat="(type, module) in $parent.module.paramaters" class="tab" ng-include="'/module.html'"></li>
-			</div>
-			}
-		</div>
-		<br>
-		}
-	</div>
-</li>
-@E@
