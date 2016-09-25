@@ -70,6 +70,10 @@ hr {
 	float: left;
 	font-family: 'Ubuntu Mono', monospace;
 }
+.scroll {
+	overflow: auto
+
+}
 #generations {
 	background-color: rgba(89, 48, 89, 0.89);
 	width: 25%;

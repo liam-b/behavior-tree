@@ -8,7 +8,7 @@ module.exports = {
   'constant': class {
     constructor (value) {
       this.value = value
-      this.type = 'constant'
+      this.type = 'constant '+this.value
     }
     run () {
       return this.value
@@ -42,7 +42,7 @@ module.exports = {
       }
     }
     run (properties) {
-      for (var int = 0; int < this.paramaters.loop; int += 1) {
+      for (var int = 0; int < this.paramaters.loops; int += 1) {
         for (var i in this.paramaters.nest) {
           this.paramaters.nest[i].run(properties)
         }

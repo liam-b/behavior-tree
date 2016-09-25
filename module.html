@@ -1,13 +1,47 @@
-<li>{{ $parent.module.type }}
+<!--
+	At the 'top level' $parent.type is invalid.
+	$parent.type refers to the KEY in the PROPERTIES LIST of the PARENT.
 
-	<span ng-if="$parent.type != undefined">
-		:
-	</span>
-	<!-- {{ $parent.module.type }} -->
+	$parent.module.type IS valid at the top level, and all subdirectories.
+	$parent.module.type refers to the MODULE ITSELF.
+-->
+{{ $parent.module.type }} <br><br>
+<div class="tab">
+	<li ng-repeat="(k,v) in $parent.module.paramaters">
+		{{ k }} :
 
+		<span ng-if="k != 'nest'">
+			{{ v }}
+		</span>
+		<span ng-if="k == 'nest'">
+			{{ v[0]["paramaters"] }}
+
+		</span>
+	</li>
+<div class="tab">
+
+<hr>
+
+@S@
+<li>
 	<div class="tab">
+		{<br>
 		{{ $parent.type }}
-		<li ng-repeat="(type, module) in module.paramaters" class="tab" ng-include="'/module.html'"></li>
-	</div>
+		<div class="tab">
+			{<br>
+			{{ $parent.module.type }}
 
+			<!-- <span ng-if="$parent.type != undefined">
+				:
+			</span> -->
+
+			<div class="tab">
+				<li ng-repeat="(type, module) in $parent.module.paramaters" class="tab" ng-include="'/module.html'"></li>
+			</div>
+			}
+		</div>
+		<br>
+		}
+	</div>
 </li>
+@E@
