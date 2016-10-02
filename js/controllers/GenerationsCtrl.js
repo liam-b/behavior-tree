@@ -1,8 +1,8 @@
 angular.module('GenerationsCtrl',[]).controller('GenerationsController', function($scope,Simulation){
-	$scope.generations = Simulation.creatures;
+	$scope.evolution = Simulation.evolution;
 
 	$scope.newCreature = function () {
-		
+
 	}
 
 });

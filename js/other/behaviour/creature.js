@@ -15,7 +15,7 @@ class Creature {
   }
 
   fitness () {
-    this.properties.fitness = (Math.abs(4 - creature.properties.position.x) + Math.abs(4 - creature.properties.position.y)) * (creature.properties.energy / 30)
+    this.properties.fitness = Math.round((Math.abs(4 - this.properties.position.x) + Math.abs(4 - this.properties.position.y)) * (this.properties.energy / 30))
     return this.properties.fitness;
   }
 

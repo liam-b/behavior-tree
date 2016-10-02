@@ -27,6 +27,10 @@ body {
 	/*background-image: url("../assets/abstract geom.svg");*/
 }
 
+.right {
+	float: right;
+}
+
 canvas {
 	background-color: rgb(192, 179, 203);
 	width: 100%;

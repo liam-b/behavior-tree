@@ -6,7 +6,7 @@ angular.module('SimulationCtrl',[]).controller('SimulationController', function(
   var viewport = new View(document.getElementById('simulationCanvas'));
 
   var creature = new Creature(0,0,viewport.level);
-  Simulation.creatures.push(creature);
+  Simulation.evolution.creatures.push(creature);
   viewport.sceneEntities = [creature];
 
   viewport.draw();

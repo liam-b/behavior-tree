@@ -1,6 +1,12 @@
+const Evolution = require('../other/behaviour/evolution.js')
+
 angular.module('SimulationService', []).factory('Simulation',[function() {
 
-	var creatures = []; //Perhaps store in a tree like format, showing inheritence and mutation?
+	var evolution = new Evolution({
+	  'minGen': 2,
+	  'maxGen': 6
+	});
+
 	var options = {
 		playing: true,
 		speed: 10 //Updates per second.
@@ -8,10 +14,10 @@ angular.module('SimulationService', []).factory('Simulation',[function() {
 
     return {
 		latestCreature : function () {
-			return creatures[0];
+			return evolution.creatures[0];
 		},
 		options: options,
-        creatures: creatures
+        evolution: evolution
     }
 
 }]);
