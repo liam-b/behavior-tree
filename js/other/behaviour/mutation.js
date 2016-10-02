@@ -49,9 +49,28 @@ module.exports = {
       }
     }
     return behaviors
+  },
+
+  generate (options) {
+    var newBehaviors = []
+    for (var i = 0; i < Math.randomInt(options.minGen, options.maxGen); i += 1) {
+      if (Math.randomChance(50)) {
+        newBehaviors.push(new tree.action.turn(Math.randomInt(0, 3)))
+      }
+      else {
+        newBehaviors.push(new tree.action.move(Math.randomInt(0, 5)))
+      }
+    }
+    return newBehaviors
   }
 }
-// 
+
+// var test = module.exports.generate({
+//   'minGen': 5,
+//   'maxGen': 10
+// })
+
+//
 // var test = [
 //   new tree.action.turn(2),
 //   new tree.action.move(1)
