@@ -41,7 +41,10 @@
 			</div>
 			<div id="generations" ng-controller="GenerationsController">
 				<ul>
-					<li>Generation 1</li>
+					<li ng-repeat="creature in evolution.creatures">
+						Creature {{ $index + 1 }}
+						<span class="right">Score: {{ creature.brains.properties.fitness }}</span>
+					</li>
 				</ul>
 			</div>
 
