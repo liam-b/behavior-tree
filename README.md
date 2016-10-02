@@ -2,8 +2,7 @@
 ![License](https://img.shields.io/badge/licence-MIT-blue.svg)
 ![Npm version](https://img.shields.io/badge/npm-^3.9.5-brightgreen.svg)
 ![JS version](https://img.shields.io/badge/js-es2015-brightgreen.svg)
-![Gulp version](https://img.shields.io/badge/gulp-^3.9.1-green.svg)
-![Express version](https://img.shields.io/badge/express-^4.14.0-green.svg)
+![Coverage](https://img.shields.io/badge/coverage-0%-red.svg)
 ![Code climate](https://codeclimate.com/github/liam-b/behavior-tree/badges/gpa.svg)
 
 A project put together by [@liam-b](https://github.com/liam-b) and [@5Mixer](https://github.com/5Mixer) exploring behavior trees and little creatures running around
