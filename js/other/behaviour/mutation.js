@@ -19,11 +19,9 @@ module.exports = {
       if (Math.randomChance(options.modify)) {
         if (behaviors[behavior].type == 'move') {
           behaviors[behavior].paramaters.distance = Math.randomInt(behaviors[behavior].paramaters.distance - options.modifyRange, behaviors[behavior].paramaters.distance + options.modifyRange)
-          console.log('ting: ' + behaviors[behavior].paramaters.distance)
         }
         else if (behaviors[behavior].type == 'turn') {
           behaviors[behavior].paramaters.rotation = Math.randomInt(behaviors[behavior].paramaters.rotation - options.modifyRange, behaviors[behavior].paramaters.rotation + options.modifyRange)
-          console.log('ting: ' + behaviors[behavior].paramaters.distance)
         }
       }
       if (Math.randomChance(options.change)) {
@@ -31,7 +29,7 @@ module.exports = {
           behaviors[behavior] = new tree.action.turn(Math.randomInt(0, 3))
         }
         else {
-          behaviors[behavior] = new tree.action.move(Math.randomInt(0, 5))
+          behaviors[behavior] = new tree.action.move(Math.randomInt(0, 3))
         }
       }
       if (Math.randomChance(options.edit)) {
@@ -43,7 +41,7 @@ module.exports = {
             behaviors.insert(behavior, new tree.action.turn(Math.randomInt(0, 3)))
           }
           else {
-            behaviors.insert(behavior, new tree.action.move(Math.randomInt(0, 5)))
+            behaviors.insert(behavior, new tree.action.move(Math.randomInt(0, 3)))
           }
         }
       }

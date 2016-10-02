@@ -3,6 +3,7 @@ img.src = "assets/creature.png";
 
 var creatureBrains = require('../behaviour/creature.js');
 var tree = require('../behaviour/tree.js')
+var mutation = require('../behaviour/mutation.js')
 
 var Creature = function(x,y,level){
 
@@ -15,10 +16,10 @@ var Creature = function(x,y,level){
       x: x,
       y: y
     }
-  }, [
-    new tree.action.turn(2),
-    new tree.action.move(1)
-  ])
+  }, mutation.generate({
+    'minGen': 3,
+    'maxGen': 10
+  }))
 }
 
 Creature.prototype.update = function() {

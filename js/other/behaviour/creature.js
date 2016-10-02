@@ -14,22 +14,21 @@ class Creature {
     }
   }
 
-	fitness () {
-		this.properties.fitness = (
-			- Math.abs(4 - this.properties.position.x) //Further from x target = lower
-			- Math.abs(4 - this.properties.position.y) //Further from y target = lower
-			+ (this.properties.energy/100)*100           //Higher energy = higher
-		)
+  fitness () {
+    this.properties.fitness = (Math.abs(4 - creature.properties.position.x) + Math.abs(4 - creature.properties.position.y)) * (creature.properties.energy / 30)
+    return this.properties.fitness;
+  }
 
-		return this.properties.fitness;
-	}
-
-	behave () {
-		if (this.iter >= this.behavior.length) this.iter = 0
-		this.behavior[this.iter].run(this.properties)
-		this.iter += 1
-		//console.log('info', this.properties.log())
-	}
+  behave () {
+    if (!(this.iter >= this.behavior.length)) {
+      this.behavior[this.iter].run(this.properties)
+      this.iter += 1
+    }
+    else {
+      this.finishedBehaving = true
+    }
+    //console.log('info', this.properties.log())
+  }
 }
 
 module.exports = Creature
