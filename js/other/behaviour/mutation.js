@@ -51,21 +51,21 @@ module.exports = {
     return behaviors
   }
 }
-
-var test = [
-  new tree.action.turn(2),
-  new tree.action.move(1)
-]
-
-console.log('start: ' + test)
-
-test = module.exports.change({
-  'modify': 30,
-  'modifyRange': 2,
-
-  'change': 20,
-
-  'edit': 10
-}, test)
-
-console.log('finish: ' + JSON.stringify(test))
+// 
+// var test = [
+//   new tree.action.turn(2),
+//   new tree.action.move(1)
+// ]
+//
+// console.log('start: ' + test)
+//
+// test = module.exports.change({
+//   'modify': 30,
+//   'modifyRange': 2,
+//
+//   'change': 20,
+//
+//   'edit': 10
+// }, test)
+//
+// console.log('finish: ' + JSON.stringify(test))

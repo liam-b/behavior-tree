@@ -30,6 +30,6 @@ class Creature {
 		this.iter += 1
 		//console.log('info', this.properties.log())
 	}
-}3
+}
 
 module.exports = Creature
