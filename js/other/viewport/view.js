@@ -1,4 +1,6 @@
 const Map = require('./map.js');
+const Goal = require('./goal.js');
+
 var View = function(canvasElement) {
 	this.c = canvasElement.getContext('2d');
 
@@ -9,6 +11,8 @@ var View = function(canvasElement) {
 	this.height = canvasElement.height;
 
 	this.level = new Map();
+
+	this.goal = new Goal(4,4,this.level);
 
 	this.sceneEntities = [];
 
@@ -27,6 +31,8 @@ View.prototype.draw = function() {
 		this.sceneEntities[i].draw(this.c);
 
 	}
+
+	this.goal.draw(this.c);
 
 
 
