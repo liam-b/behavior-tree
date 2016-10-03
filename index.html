@@ -1,75 +1,75 @@
 <!DOCTYPE html>
 <html ng-app="creatureSim">
-	<head>
-		<meta charset="utf-8">
-		<title>Creature Behaviour System</title>
-		<link href="https://fonts.googleapis.com/css?family=Kreon|Open+Sans|Ubuntu+Mono" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="css/main.css">
-	</head>
-	<body>
-		<div class="layout">
-			<h1>Artificial Creature Development</h1>
-			<div id="simulation" ng-controller="SimulationController">
-				<canvas id="simulationCanvas">
-					Your browser does not support HTML5 canvas.
-				</canvas>
-			</div>
-			<div id="creatureBrain" ng-controller="BrainController" class="scroll">
-				x: {{brain.properties.position.x}}, y: {{brain.properties.position.y}} <br>
-				rotation: {{brain.properties.rotation}}
+  <head>
+    <meta charset="utf-8">
+    <title>Creature Behaviour System</title>
+    <link href="https://fonts.googleapis.com/css?family=Kreon|Open+Sans|Ubuntu+Mono" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+  </head>
+  <body>
+    <div class="layout">
+      <h1>Artificial Creature Development</h1>
+      <div id="simulation" ng-controller="SimulationController">
+        <canvas id="simulationCanvas">
+          Your browser does not support HTML5 canvas.
+        </canvas>
+      </div>
+      <div id="creatureBrain" ng-controller="BrainController" class="scroll">
+        x: {{brain.properties.position.x}}, y: {{brain.properties.position.y}} <br>
+        rotation: {{brain.properties.rotation}}
 
-				<span ng-if="brain.properties.rotation == 0">↑</span>
-				<span ng-if="brain.properties.rotation == 1">→</span>
-				<span ng-if="brain.properties.rotation == 2">↓</span>
-				<span ng-if="brain.properties.rotation == 3">←</span>
+        <span ng-if="brain.properties.rotation == 0">↑</span>
+        <span ng-if="brain.properties.rotation == 1">→</span>
+        <span ng-if="brain.properties.rotation == 2">↓</span>
+        <span ng-if="brain.properties.rotation == 3">←</span>
 
-				<br>
+        <br>
 
-				energy: {{brain.properties.energy}} <br>
-				fitness: {{ brain.fitness() }}
-				<hr>
-				<ul>
-					<!-- <li ng-repeat="module in brain.behavior">
-						{{ module.type }}
-						<li ng-repeat="paramater in module.paramaters">
-							>> {{ paramater }}
-						</li>
-					</li> -->
-					<li ng-repeat="module in brain.behavior" ng-include="'/module.html'">
-					</li>
-				</ul>
-			</div>
-			<div id="generations" ng-controller="GenerationsController">
-				<ul>
-					<li ng-repeat="creature in evolution.creatures">
-						Creature {{ $index + 1 }}
-						<span class="right">Score: {{ creature.brains.properties.fitness }}</span>
-					</li>
-				</ul>
-			</div>
+        energy: {{brain.properties.energy}} <br>
+        fitness: {{ brain.fitness() }}
+        <hr>
+        <ul>
+          <!-- <li ng-repeat="module in brain.behavior">
+            {{ module.type }}
+            <li ng-repeat="paramater in module.paramaters">
+              >> {{ paramater }}
+            </li>
+          </li> -->
+          <li ng-repeat="module in brain.behavior" ng-include="'/module.html'">
+          </li>
+        </ul>
+      </div>
+      <div id="generations" ng-controller="GenerationsController">
+        <ul>
+          <li ng-repeat="creature in evolution.creatures">
+            Creature {{ $index + 1 }}
+            <span class="right">Score: {{ creature.brains.properties.fitness }}</span>
+          </li>
+        </ul>
+      </div>
 
-        	<div style="clear: both;"></div> <!--http://tinyurl.com/hwjv3od-->
+          <div style="clear: both;"></div> <!--http://tinyurl.com/hwjv3od-->
 
-			<div id="devPanel" ng-controller="DevController">
-				<h3 ng-click="toggleExpansion()" class="noselect clickable">Creature Simulator</h3>
+      <div id="devPanel" ng-controller="DevController">
+        <h3 ng-click="toggleExpansion()" class="noselect clickable">Creature Simulator</h3>
 
-				<div ng-if="expanded">
-					<hr>
+        <div ng-if="expanded">
+          <hr>
 
-					Speed:
-					<input type="number" name="speed" min="1" max="1000" value="10" ng-change="changeSpeed()" ng-model="options.speed"> </input>
+          Speed:
+          <input type="number" name="speed" min="1" max="1000" value="10" ng-change="changeSpeed()" ng-model="options.speed"> </input>
 
-					<span class="noselect button" ng-click="togglePlaying()">
-						<span ng-if="playing">❚❚</span>
-						<span ng-if="!playing">►</span>
-					</span>
-				</div>
-			</div>
-		</div>
+          <span class="noselect button" ng-click="togglePlaying()">
+            <span ng-if="playing">❚❚</span>
+            <span ng-if="!playing">►</span>
+          </span>
+        </div>
+      </div>
+    </div>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
-		<script src="js/all.js"></script>
-		<script type="text/ng-template" src="module.html" id="module.html">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
+    <script src="js/all.js"></script>
+    <script type="text/ng-template" src="module.html" id="module.html">
 
-	</body>
+  </body>
 </html>

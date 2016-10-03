@@ -11,10 +11,12 @@ module.exports = function (settings) {
       this.creatures.push(new Creature ({
         energy: this.settings.generation.energy,
         rotation: this.settings.generation.rotation,
+        fitness: 0,
         position: {
-          x: this.settings.generation.x,
-          y: this.settings.generation.y
-        }
+          x: this.settings.generation.position.x,
+          y: this.settings.generation.position.y
+        },
+        finishedBehaving: false
       }, mutation.generate({
         'minGen': this.settings.generation.mutation.min,
         'maxGen': this.settings.generation.mutation.max
@@ -24,20 +26,20 @@ module.exports = function (settings) {
 
   this.grade = function () {
     for (var creature in this.creatures) {
-      // while (!this.creatures[creature].properties.finishedBehaving) {
-      //   this.creatures[creature].behave()
-      // }
-      this.creatures[creature].fitness = this.creatures[creature].evaluateFitness()
+      while (this.creatures[creature].iter < this.creatures[creature].behavior.length) {
+        this.creatures[creature].behave()
+      }
+      this.creatures[creature].properties.fitness = this.creatures[creature].evaluateFitness()
     }
-  }
 
-  this.cull = function () {
     this.creatures.sort(function (a, b) {
       if (a.properties.fitness > b.properties.fitness) return 1;
       if (a.properties.fitness < b.properties.fitness) return -1;
       return 0
     })
+  }
 
+  this.cull = function () {
     let cullBelow = settings.cullPercent / 100 * this.creatures.length
 
     for (var creature = this.creatures.length; creature > cullBelow; creature -= 1) {
@@ -52,23 +54,27 @@ module.exports = function (settings) {
         this.creatures[newCreature].properties = {
           energy: this.settings.generation.energy,
           rotation: this.settings.generation.rotation,
+          fitness: 0,
           position: {
-            x: this.settings.generation.x,
-            y: this.settings.generation.y
-          }
+            x: this.settings.generation.position.x,
+            y: this.settings.generation.position.y
+          },
+          finishedBehaving: false
         }
         this.creatures.push(new Creature ({
           energy: this.settings.generation.energy,
           rotation: this.settings.generation.rotation,
+          fitness: 0,
           position: {
-            x: this.settings.generation.x,
-            y: this.settings.generation.y
-          }
+            x: this.settings.generation.position.x,
+            y: this.settings.generation.position.y
+          },
+          finishedBehaving: false
         }, mutation.change({
-          'modify': this.settings.mutation.modify,
-          'modifyRange': this.settings.mutation.modifyRange,
-          'change': this.settings.mutation.change,
-          'edit': this.settings.mutation.edit
+          modify: this.settings.mutation.modify,
+          modifyRange: this.settings.mutation.modifyRange,
+          change: this.settings.mutation.change,
+          edit: this.settings.mutation.edit
         }, this.creatures[newCreature].behavior)))
       }
     }
@@ -89,7 +95,7 @@ var test = new module.exports ({
     }
   },
 
-  'cullPercent': 75,
+  'cullPercent': 10,
   'populationCount': 100,
 
   'mutation': {
@@ -101,6 +107,18 @@ var test = new module.exports ({
 })
 
 test.populate()
+
+for (var i = 0; i < 20; i += 1) {
+  test.grade()
+  test.cull()
+  test.repopulate()
+  console.log(i)
+}
+
 test.grade()
 
-console.log(test)
+if (test.creatures[0].properties.fitness < 5) {
+  console.log(test.creatures[0])
+}
+
+console.log(test.creatures)

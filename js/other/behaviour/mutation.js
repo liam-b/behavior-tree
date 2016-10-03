@@ -8,14 +8,13 @@ Math.randomChance = function (chance) {
   return Math.randomInt(0, 100) < chance
 }
 
-Array.prototype.insert = function (index, item) {
-  this.splice(index, 0, item);
+function insert (arr, index, item) {
+  arr.splice(index, 0, item);
 }
 
 module.exports = {
   change: function (options, behaviors) {
-    for (behavior in behaviors) {
-      console.log(behaviors[behavior])
+    for (var behavior in behaviors) {
       if (Math.randomChance(options.modify)) {
         if (behaviors[behavior].type == 'move') {
           behaviors[behavior].paramaters.distance = Math.randomInt(behaviors[behavior].paramaters.distance - options.modifyRange, behaviors[behavior].paramaters.distance + options.modifyRange)
@@ -38,10 +37,10 @@ module.exports = {
         }
         else {
           if (Math.randomChance(50)) {
-            behaviors.insert(behavior, new tree.action.turn(Math.randomInt(0, 3)))
+            insert(behaviors, behavior, new tree.action.turn(Math.randomInt(0, 3)))
           }
           else {
-            behaviors.insert(behavior, new tree.action.move(Math.randomInt(0, 3)))
+            insert(behaviors, behavior, new tree.action.move(Math.randomInt(0, 3)))
           }
         }
       }

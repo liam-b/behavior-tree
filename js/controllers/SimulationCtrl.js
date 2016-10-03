@@ -19,7 +19,7 @@ angular.module('SimulationCtrl',[]).controller('SimulationController', function(
       viewport.draw();
     }
 
-      setTimeout(function() { tick(); }, 10000/Simulation.options.speed);
+      // setTimeout(function() { tick(); }, 10000/Simulation.options.speed);
   }
   tick();
 });
