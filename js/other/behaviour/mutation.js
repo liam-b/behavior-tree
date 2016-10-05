@@ -14,6 +14,7 @@ function insert (arr, index, item) {
 
 module.exports = {
   change: function (options, behaviors) {
+    // console.log('in', behaviors[0].paramaters)
     for (var behavior in behaviors) {
       if (Math.randomChance(options.modify)) {
         if (behaviors[behavior].type == 'move') {
@@ -45,6 +46,7 @@ module.exports = {
         }
       }
     }
+    // console.log('out', behaviors[0].paramaters)
     return behaviors
   },
 
@@ -58,6 +60,7 @@ module.exports = {
         newBehaviors.push(new tree.action.move(Math.randomInt(0, 5)))
       }
     }
+    // console.log('gen', newBehaviors[0].paramaters)
     return newBehaviors
   }
 }

@@ -14,7 +14,7 @@ module.exports = function (info, behavior) {
   this.iter = 0
 
   this.evaluateFitness = function () {
-    return (Math.abs(4 - this.properties.position.x) + Math.abs(4 - this.properties.position.y)) * (100 - (this.properties.energy / 30))
+    return (Math.abs(7 - this.properties.position.x) + Math.abs(7 - this.properties.position.y)) // / (this.properties.energy / 300)
   }
 
   this.behave = function () {

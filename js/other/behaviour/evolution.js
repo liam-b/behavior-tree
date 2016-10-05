@@ -48,20 +48,24 @@ module.exports = function (settings) {
   }
 
   this.repopulate = function () {
-    while (this.creatures.length < this.settings.populationCount) {
+    for (var oldCreature in this.creatures) {
+      this.creatures[oldCreature].properties = {
+        energy: this.settings.generation.energy,
+        rotation: this.settings.generation.rotation,
+        fitness: this.creatures[oldCreature].properties.fitness,
+        position: {
+          x: this.settings.generation.position.x,
+          y: this.settings.generation.position.y
+        },
+        finishedBehaving: false
+      }
+      this.creatures[oldCreature].iter = 0
+    }
+    var newCreatures = this.creatures
+    while (newCreatures.length < this.settings.populationCount) {
       for (var newCreature in this.creatures) {
-        if (newCreature + this.creatures.length >= this.settings.populationCount) break
-        this.creatures[newCreature].properties = {
-          energy: this.settings.generation.energy,
-          rotation: this.settings.generation.rotation,
-          fitness: 0,
-          position: {
-            x: this.settings.generation.position.x,
-            y: this.settings.generation.position.y
-          },
-          finishedBehaving: false
-        }
-        this.creatures.push(new Creature ({
+        if (parseInt(newCreatures.length) >= this.settings.populationCount) break
+        newCreatures.push(new Creature ({
           energy: this.settings.generation.energy,
           rotation: this.settings.generation.rotation,
           fitness: 0,
@@ -78,47 +82,71 @@ module.exports = function (settings) {
         }, this.creatures[newCreature].behavior)))
       }
     }
+    // for (var d in newCreatures) {
+    //   console.log(newCreatures[d].properties.fitness)
+    // }
+    // console.log('w---------'  + newCreatures.length + '---------')
+    this.creatures = newCreatures
   }
 }
 
 var test = new module.exports ({
-  'generation': {
-    'energy': 100,
-    'rotation': 0,
-    'position': {
-      'x': 0,
-      'y': 0
+  generation: {
+    energy: 100,
+    rotation: 0,
+    position: {
+      x: 0,
+      y: 0
     },
-    'mutation': {
-      'min': 4,
-      'max': 10
+    mutation: {
+      min: 5,
+      max: 10
     }
   },
 
-  'cullPercent': 10,
-  'populationCount': 100,
+  cullPercent: 10,
+  populationCount: 100,
 
-  'mutation': {
-    'modify': 30,
-    'modifyRange': 2,
-    'change': 20,
-    'edit': 10
+  mutation: {
+    modify: 1,
+    modifyRange: 1,
+    change: 0,
+    edit: 0
   }
 })
 
 test.populate()
-
-for (var i = 0; i < 20; i += 1) {
-  test.grade()
-  test.cull()
-  test.repopulate()
-  console.log(i)
-}
-
 test.grade()
+// console.log('l', test.creatures[0].properties.fitness)
+// test.cull()
+// test.repopulate()
+// test.grade()
+// console.log('t', test.creatures[0].properties.fitness)
 
-if (test.creatures[0].properties.fitness < 5) {
-  console.log(test.creatures[0])
+// for (var l in test.creatures) {
+//   console.log(test.creatures[l].behavior, test.creatures[l].properties.fitness)
+// }
+// console.log(test.creatures)
+
+// console.log(JSON.stringify(test.creatures))
+
+for (var i = 0; i < 50; i += 1) {
+  test.grade()
+  // for (var d in test.creatures) {
+  //   console.log(test.creatures[d].properties.fitness)
+  // }
+  // console.log('s---------'  + test.creatures.length + '---------')
+  test.cull()
+  // for (var d in test.creatures) {
+  //   console.log(test.creatures[d].properties.fitness)
+  // }
+  // console.log('c---------'  + test.creatures.length + '---------')
+  test.repopulate()
+  test.grade()
+  for (var d in test.creatures) {
+    console.log(test.creatures[d].properties.fitness)
+  }
+  console.log('---------'  + test.creatures.length + '---------')
 }
 
-console.log(test.creatures)
+// console.log(test.creatures)
