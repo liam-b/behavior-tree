@@ -1,5 +1,5 @@
-module.exports = function (info, behavior) {
-  this.behavior = behavior
+module.exports = function (info, brain, world, viewArea) {
+  this.brain = brain
   this.properties = {
     energy: info.energy,
     rotation: info.rotation,
@@ -11,14 +11,28 @@ module.exports = function (info, behavior) {
     finishedBehaving: false
   }
 
-  this.iter = 0
-
-  this.evaluateFitness = function () {
-    return (Math.abs(7 - this.properties.position.x) + Math.abs(7 - this.properties.position.y)) // / (this.properties.energy / 300)
-  }
+  this.world = world
+  this.viewArea = viewArea
+  this.viewport = []
 
   this.behave = function () {
-    this.behavior[this.iter].run(this.properties)
-    this.iter += 1
+    for (var x = 0; x < this.viewArea; x += 1) {
+      this.viewport[x] = []
+      for (var y = 0; y < this.viewArea; y += 1) {
+        this.viewport[x][y] = this.world.world[this.properties.position.x + x - Math.floor(this.viewArea / 2)][this.properties.position.y + y - Math.floor(this.viewArea / 2)]
+      }
+    }
+    for (var x = 0; x < this.viewArea; x += 1) {
+      for (var y = 0; y < this.viewArea; y += 1) {
+        if (this.brain[x][y].length > 0) {
+          // console.log(this.viewport[x][y], this.brain[x][y])
+          for (var link = 0; link < this.brain[x][y].length; link += 1) {
+            if (this.viewport[x][y] == this.brain[x][y][link].test) {
+              this.brain[x][y][link].run(this.properties)
+            }
+          }
+        }
+      }
+    }
   }
 }
