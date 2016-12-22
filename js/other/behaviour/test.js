@@ -7,7 +7,7 @@ var creature = new Creature({
   energy: 100,
   rotation: 0,
   position: {
-    x: 1,
+    x: 2,
     y: 2
   }
 }, [
@@ -46,8 +46,7 @@ var creature = new Creature({
   ]
 ], new world.World(world.generateEmpty(5), 5), 3)
 
-console.log(creature.world.world)
-console.log(creature.properties.position)
 creature.behave()
-console.log(creature.viewport)
-console.log(creature.properties.position)
+world.log(creature.viewport)
+creature.findViewport()
+world.log(creature.viewport)

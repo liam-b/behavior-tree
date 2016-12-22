@@ -15,9 +15,25 @@ module.exports = {
     }
 
     // HACK //
-    generatedWorld[2][2] = tile.wall
+    generatedWorld[3][2] = tile.wall
     // HACK //
 
     return generatedWorld
+  },
+  log: function (world) {
+    var logString = '\n'
+    for (var y = 0; y < world.length; y += 1) {
+      for (var x = 0; x < world.length; x += 1) {
+        if (world[x][y] == tile.wall) {
+          logString += 'w '
+        }
+        else {
+          logString += 'a '
+        }
+      }
+      logString += '\n'
+    }
+
+    console.log(logString)
   }
 }
