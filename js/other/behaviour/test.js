@@ -1,11 +1,10 @@
-var Creature = require('../behaviour/creature.js')
-var world = require('../behaviour/world.js')
-var action = require('../behaviour/action.js')
-var tile = require('../behaviour/tile.js')
+var Creature = require('./creature.js')
+var world = require('./world.js')
+var action = require('./action.js')
+var tile = require('./tile.js')
 
 var creature = new Creature({
-  energy: 100,
-  rotation: 0,
+  energy: 15,
   position: {
     x: 2,
     y: 2

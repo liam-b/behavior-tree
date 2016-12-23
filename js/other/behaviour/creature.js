@@ -1,28 +1,24 @@
-module.exports = function (info, brain, world, viewArea) {
+module.exports = function (info, brain, viewArea) {
   this.brain = brain
-  this.properties = {
-    energy: info.energy,
-    rotation: info.rotation,
-    fitness: 0,
-    position: {
-      x: info.position.x,
-      y: info.position.y
-    },
-    finishedBehaving: false
+
+  this.energy = info.energy,
+  this.fitness = 0
+  this.position = {
+    x: info.position.x,
+    y: info.position.y
   }
 
-  this.world = world
   this.viewArea = viewArea
   this.viewport = []
 
-  this.behave = function () {
-    this.findViewport()
+  this.behave = function (world) {
+    this.findViewport(world)
     for (var x = 0; x < this.viewArea; x += 1) {
       for (var y = 0; y < this.viewArea; y += 1) {
         if (this.brain[x][y].length > 0) {
           for (var link = 0; link < this.brain[x][y].length; link += 1) {
             if (this.viewport[x][y] == this.brain[x][y][link].test) {
-              this.brain[x][y][link].run(this.properties)
+              this.brain[x][y][link].run(this)
             }
           }
         }
@@ -30,12 +26,12 @@ module.exports = function (info, brain, world, viewArea) {
     }
   }
 
-  this.findViewport = function () {
+  this.findViewport = function (world) {
     this.viewport = []
     for (var x = 0; x < this.viewArea; x += 1) {
       this.viewport[x] = []
       for (var y = 0; y < this.viewArea; y += 1) {
-        this.viewport[x][y] = this.world.world[this.properties.position.x + x - Math.floor(this.viewArea / 2)][this.properties.position.y + y - Math.floor(this.viewArea / 2)]
+        this.viewport[x][y] = world.world[this.position.x + x - Math.floor(this.viewArea / 2)][this.position.y + y - Math.floor(this.viewArea / 2)]
       }
     }
   }

@@ -1,25 +1,91 @@
 var img = new Image();
 img.src = "assets/creature.png";
 
-var creatureBrains = require('../behaviour/creature.js');
-var tree = require('../behaviour/tree.js')
-var mutation = require('../behaviour/mutation.js')
+var CreatureBrains = require('../behaviour/creature.js')
+var World = require('../behaviour/world.js')
+var tile = require('../behaviour/tile.js')
+var action = require('../behaviour/action.js')
 
 var Creature = function(x,y,level){
 
   this.level = level;
 
-  this.brains = new creatureBrains({
+  this.brains = new CreatureBrains({
     energy: 100,
     rotation: 0,
     position: {
       x: x,
       y: y
     }
-  }, mutation.generate({
-    'minGen': 3,
-    'maxGen': 10
-  }))
+  }, [
+    [
+      [
+        {'test': tile.wall, 'run': action.move.up}
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ]
+  ], [
+    [
+      [
+        tile.wall,
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ]
+  ], 2)
 }
 
 Creature.prototype.update = function() {

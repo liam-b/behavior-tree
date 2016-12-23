@@ -1,90 +1,79 @@
-// const tree = require('./tree.js')
-//
-// Math.randomInt = function (min, max) {
-//   return Math.floor(Math.random() * (max - min + 1)) + min;
-// }
-//
-// Math.randomChance = function (chance) {
-//   return Math.randomInt(0, 100) < chance
-// }
-//
-// function insert (arr, index, item) {
-//   arr.splice(index, 0, item);
-// }
-// 
-// module.exports = {
-//   change: function (options, behaviors) {
-//     // console.log('in', behaviors[0].paramaters)
-//     for (var behavior in behaviors) {
-//       if (Math.randomChance(options.modify)) {
-//         if (behaviors[behavior].type == 'move') {
-//           behaviors[behavior].paramaters.distance = Math.randomInt(behaviors[behavior].paramaters.distance - options.modifyRange, behaviors[behavior].paramaters.distance + options.modifyRange)
-//         }
-//         else if (behaviors[behavior].type == 'turn') {
-//           behaviors[behavior].paramaters.rotation = Math.randomInt(behaviors[behavior].paramaters.rotation - options.modifyRange, behaviors[behavior].paramaters.rotation + options.modifyRange)
-//         }
-//       }
-//       if (Math.randomChance(options.change)) {
-//         if (Math.randomChance(50)) {
-//           behaviors[behavior] = new tree.action.turn(Math.randomInt(0, 3))
-//         }
-//         else {
-//           behaviors[behavior] = new tree.action.move(Math.randomInt(0, 3))
-//         }
-//       }
-//       if (Math.randomChance(options.edit)) {
-//         if (Math.randomChance(50)) {
-//           behaviors.splice(behavior)
-//         }
-//         else {
-//           if (Math.randomChance(50)) {
-//             insert(behaviors, behavior, new tree.action.turn(Math.randomInt(0, 3)))
-//           }
-//           else {
-//             insert(behaviors, behavior, new tree.action.move(Math.randomInt(0, 3)))
-//           }
-//         }
-//       }
-//     }
-//     // console.log('out', behaviors[0].paramaters)
-//     return behaviors
-//   },
-//
-//   generate (options) {
-//     var newBehaviors = []
-//     for (var i = 0; i < Math.randomInt(options.minGen, options.maxGen); i += 1) {
-//       if (Math.randomChance(50)) {
-//         newBehaviors.push(new tree.action.turn(Math.randomInt(0, 3)))
-//       }
-//       else {
-//         newBehaviors.push(new tree.action.move(Math.randomInt(0, 5)))
-//       }
-//     }
-//     // console.log('gen', newBehaviors[0].paramaters)
-//     return newBehaviors
-//   }
-// }
-//
-// // var test = module.exports.generate({
-// //   'minGen': 5,
-// //   'maxGen': 10
-// // })
-//
-// //
-// // var test = [
-// //   new tree.action.turn(2),
-// //   new tree.action.move(1)
-// // ]
-// //
-// // console.log('start: ' + test)
-// //
-// // test = module.exports.change({
-// //   'modify': 30,
-// //   'modifyRange': 2,
-// //
-// //   'change': 20,
-// //
-// //   'edit': 10
-// // }, test)
-// //
-// // console.log('finish: ' + JSON.stringify(test))
+var action = require('./action.js')
+var tile = require('./tile.js')
+
+function randomChance (chance) {
+  return Math.random() < chance / 100
+}
+
+function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function randomTile () {
+  switch (randomInt(0, 2)) {
+    case 0:
+      return tile.air
+    case 1:
+      return tile.wall
+    case 2:
+      return tile.food
+  }
+}
+
+function randomAction () {
+  switch (randomInt(0, 3)) {
+    case 0:
+      return action.move.up
+    case 1:
+      return action.move.down
+    case 2:
+      return action.move.left
+    case 3:
+      return action.move.right
+  }
+}
+
+module.exports = {
+  create: function (settings) {
+    var newBrain = []
+    for (var x = 0; x < settings.brainSize; x += 1) {
+      newBrain[x] = []
+      for (var y = 0; y < settings.brainSize; y += 1) {
+        if (randomChance(settings.newTie)) {
+          newBrain[x][y] = [{'test': randomTile(), 'run': randomAction()}]
+        }
+        else {
+          newBrain[x][y] = []
+        }
+      }
+    }
+
+    return newBrain
+  },
+
+  mutate: function (brain, settings) {
+    for (var x = 0; x < settings.brainSize; x += 1) {
+      for (var y = 0; y < settings.brainSize; y += 1) {
+        for (var tie = 0; tie < brain[x][y].length; tie += 1) {
+          if (randomChance(settings.changeTie)) {
+            brain[x][y][tie] = {'test': randomTile(), 'run': randomAction()}
+          }
+        }
+        for (var tie = 0; tie < brain[x][y].length; tie += 1) {
+          if (randomChance(settings.removeTie) && brain[x][y].length > 0) {
+            brain[x][y].splice(tie, 1)
+          }
+        }
+        if (randomChance(settings.addTie)) {
+          brain[x][y].push({'test': randomTile(), 'run': randomAction()})
+        }
+      }
+    }
+  }
+}
+
+// var test = module.exports.create({brainSize: 3, newTie: 20})
+// console.log(test)
+// console.log()
+// module.exports.mutate(test, {brainSize: 3, addTie: 10, changeTie: 30, removeTie: 5})
+// console.log(test)

@@ -1,10 +1,11 @@
-var tile = require('../behaviour/tile.js')
+var tile = require('./tile.js')
 
 module.exports = {
   World: function (world, worldSize) {
     this.world = world
     this.size = worldSize
   },
+
   generateEmpty: function (worldSize) {
     var generatedWorld = []
     for (var x = 0; x < worldSize; x += 1) {
@@ -20,6 +21,7 @@ module.exports = {
 
     return generatedWorld
   },
+
   log: function (world) {
     var logString = '\n'
     for (var y = 0; y < world.length; y += 1) {
