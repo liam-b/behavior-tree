@@ -7,10 +7,5 @@ evolution.initialiseEvolution()
 evolution.stepGeneration()
 
 // loop through multiple generations
-evolution.loopGenerations(10)
-
-// loop through multiple generations as fast as possible but you can't access creature array while this is happening
-evolution.loopGenerationsFast(10)
-
-// array of creatures updated after each generation
+evolution.loopGenerations(1000)
 evolution.creatures

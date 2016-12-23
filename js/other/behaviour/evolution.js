@@ -24,8 +24,8 @@ module.exports = {
     return generation
   },
 
-  grade: function (generation, gradeSettings) {
-    testingEnviroment = new world.World(world.generateEmpty(gradeSettings.mapSize), gradeSettings.mapSize)
+  grade: function (generation, gradeSettings, map) {
+    testingEnviroment = map
 
     for (var index = 0; index < generation.length; index += 1) {
       grade(generation[index], testingEnviroment, gradeSettings)
