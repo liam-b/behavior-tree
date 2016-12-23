@@ -52,6 +52,7 @@ module.exports = {
         y: newCreatureSettings.position.y,
       }
     }
+    bestBrain = generation[generation.length - 1].brain
     while (generation.length < evolutionSettings.generationSize) {
       generation.push(new Creature({
         energy: newCreatureSettings.energy,
@@ -59,7 +60,7 @@ module.exports = {
           x: newCreatureSettings.position.x,
           y: newCreatureSettings.position.y
         } // TODO add brain class for more brainy stuff
-      }, mutation.create({brainSize: mutationSettings.brainSize, newTie: mutationSettings.newTie}), newCreatureSettings.viewArea))
+      }, mutation.mutate(bestBrain, mutationSettings), newCreatureSettings.viewArea))
     }
 
     return generation
