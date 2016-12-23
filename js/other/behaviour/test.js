@@ -1,51 +1,16 @@
-var Creature = require('./creature.js')
-var world = require('./world.js')
-var action = require('./action.js')
-var tile = require('./tile.js')
+var evolution = require('./controller.js')
 
-var creature = new Creature({
-  energy: 15,
-  position: {
-    x: 2,
-    y: 2
-  }
-}, [
-  [
-    [
+// needed to setup stuff
+evolution.initialiseEvolution()
 
-    ],
-    [
+// go through one generation
+evolution.stepGeneration()
 
-    ],
-    [
+// loop through multiple generations
+evolution.loopGenerations(10)
 
-    ]
-  ],
-  [
-    [
+// loop through multiple generations as fast as possible but you can't access creature array while this is happening
+evolution.loopGenerationsFast(10)
 
-    ],
-    [
-
-    ],
-    [
-
-    ]
-  ],
-  [
-    [
-
-    ],
-    [
-      {'test': tile.wall, 'run': action.move.left}
-    ],
-    [
-
-    ]
-  ]
-], new world.World(world.generateEmpty(5), 5), 3)
-
-creature.behave()
-world.log(creature.viewport)
-creature.findViewport()
-world.log(creature.viewport)
+// array of creatures updated after each generation
+evolution.creatures

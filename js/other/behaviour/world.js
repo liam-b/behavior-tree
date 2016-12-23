@@ -16,7 +16,7 @@ module.exports = {
     }
 
     // HACK //
-    generatedWorld[3][2] = tile.wall
+    generatedWorld[5][5] = tile.wall
     // HACK //
 
     return generatedWorld

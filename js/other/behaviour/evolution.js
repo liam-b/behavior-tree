@@ -66,11 +66,7 @@ module.exports = {
     return generation
   },
 
-  showGrades: function (generation) {
+  postGrade: function (generation) {
     generation.sort(compare)
-    for (var i = 0; i < generation.length; i += 1) {
-      console.log(generation[i].fitness)
-    }
-    console.log('best', generation[generation.length - 1].fitness, generation[generation.length - 1].brain)
   }
 }

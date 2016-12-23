@@ -24,14 +24,38 @@ const gradeSettings = {
 }
 const cullBelow = 50
 
-var creatures = evolution.populate(mutationSettings, evolutionSettings, newCreatureSettings)
-creatures = evolution.grade(creatures, gradeSettings)
-creatures = evolution.cull(creatures, cullBelow)
-creatures = evolution.repopulate(creatures, evolutionSettings, newCreatureSettings, mutationSettings)
-creatures = evolution.grade(creatures, gradeSettings)
-creatures = evolution.cull(creatures, cullBelow)
-creatures = evolution.repopulate(creatures, evolutionSettings, newCreatureSettings, mutationSettings)
-creatures = evolution.grade(creatures, gradeSettings)
-evolution.showGrades(creatures)
 
-// console.log(creatures)
+var creatures = []
+module.exports.creatures = creatures
+
+module.exports.initialiseEvolution = function () {
+  creatures = evolution.populate(mutationSettings, evolutionSettings, newCreatureSettings)
+  module.exports.creatures = creatures
+}
+
+module.exports.stepGeneration = function () {
+  creatures = evolution.grade(creatures, gradeSettings)
+  creatures = evolution.cull(creatures, cullBelow)
+  creatures = evolution.repopulate(creatures, evolutionSettings, newCreatureSettings, mutationSettings)
+  evolution.postGrade(creatures)
+  module.exports.creatures = creatures
+}
+
+module.exports.loopGenerations = function (loops) {
+  for (var loop = 0; loop < loops; loop += 1) {
+    creatures = evolution.grade(creatures, gradeSettings)
+    creatures = evolution.cull(creatures, cullBelow)
+    creatures = evolution.repopulate(creatures, evolutionSettings, newCreatureSettings, mutationSettings)
+    evolution.postGrade(creatures)
+    module.exports.creatures = creatures
+  }
+}
+
+module.exports.loopGenerationsFast = function (loops) {
+  for (var loop = 0; loop < loops; loop += 1) {
+    creatures = evolution.grade(creatures, gradeSettings)
+    creatures = evolution.cull(creatures, cullBelow)
+    creatures = evolution.repopulate(creatures, evolutionSettings, newCreatureSettings, mutationSettings)
+  }
+  module.exports.creatures = creatures
+}
