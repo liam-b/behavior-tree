@@ -48,8 +48,8 @@ module.exports = {
     for (var creature = 0; creature < generation.length; creature += 1) {
       generation[creature].energy = newCreatureSettings.energy
       generation[creature].position = {
-        x: newCreatureSettings.x,
-        y: newCreatureSettings.y,
+        x: newCreatureSettings.position.x,
+        y: newCreatureSettings.position.y,
       }
     }
     while (generation.length < evolutionSettings.generationSize) {
@@ -63,5 +63,13 @@ module.exports = {
     }
 
     return generation
+  },
+
+  showGrades: function (generation) {
+    generation.sort(compare)
+    for (var i = 0; i < generation.length; i += 1) {
+      console.log(generation[i].fitness)
+    }
+    console.log('best', generation[generation.length - 1].fitness, generation[generation.length - 1].brain)
   }
 }

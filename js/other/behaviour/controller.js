@@ -15,7 +15,8 @@ const newCreatureSettings = {
   position: {
     x: 10,
     y: 10
-  }
+  },
+  viewArea: 3
 }
 const gradeSettings = {
   mapSize: 20,
@@ -27,5 +28,7 @@ var creatures = evolution.populate(mutationSettings, evolutionSettings, newCreat
 creatures = evolution.grade(creatures, gradeSettings)
 creatures = evolution.cull(creatures, cullBelow)
 creatures = evolution.repopulate(creatures, evolutionSettings, newCreatureSettings, mutationSettings)
+creatures = evolution.grade(creatures, gradeSettings)
+evolution.showGrades(creatures)
 
-console.log(creatures)
+// console.log(creatures)
