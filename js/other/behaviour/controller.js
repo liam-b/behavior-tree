@@ -41,6 +41,8 @@ module.exports.stepGeneration = function () {
   creatures = evolution.grade(creatures, gradeSettings, map)
   creatures = evolution.cull(creatures, cullBelow)
   creatures = evolution.repopulate(creatures, evolutionSettings, newCreatureSettings, mutationSettings)
+  
+  creatures = evolution.grade(creatures, gradeSettings, map)
   evolution.postGrade(creatures)
   module.exports.creatures = creatures
 }
@@ -53,6 +55,9 @@ module.exports.loopGenerations = function (loops) {
     evolution.postGrade(creatures)
     module.exports.creatures = creatures
   }
+  creatures = evolution.grade(creatures, gradeSettings, map)
+  evolution.postGrade(creatures)
+  module.exports.creatures = creatures
 }
 
 module.exports.loopGenerationsFast = function (loops) {
@@ -61,5 +66,7 @@ module.exports.loopGenerationsFast = function (loops) {
     creatures = evolution.cull(creatures, cullBelow)
     creatures = evolution.repopulate(creatures, evolutionSettings, newCreatureSettings, mutationSettings)
   }
+  creatures = evolution.grade(creatures, gradeSettings, map)
+  evolution.postGrade(creatures)
   module.exports.creatures = creatures
 }

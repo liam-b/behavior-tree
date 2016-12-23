@@ -4,8 +4,9 @@ var evolution = require('./controller.js')
 evolution.initialiseEvolution()
 
 // go through one generation
-evolution.stepGeneration()
+// evolution.stepGeneration()
 
 // loop through multiple generations
 evolution.loopGenerations(1000)
-evolution.creatures
+
+console.log(evolution.creatures[evolution.creatures.length - 1])

@@ -7,6 +7,7 @@ module.exports = function (info, brain, viewArea) {
     x: info.position.x,
     y: info.position.y
   }
+  this.behaved = false
 
   this.viewArea = viewArea
   this.viewport = []
@@ -18,12 +19,16 @@ module.exports = function (info, brain, viewArea) {
         if (this.brain[x][y].length > 0) {
           for (var link = 0; link < this.brain[x][y].length; link += 1) {
             if (this.viewport[x][y] == this.brain[x][y][link].test) {
-              this.brain[x][y][link].run(this, world)
+              if (!this.behaved) {
+                this.brain[x][y][link].run(this, world)
+                this.behaved = true
+              }
             }
           }
         }
       }
     }
+    this.behaved = false
   }
 
   this.findViewport = function (world) {
