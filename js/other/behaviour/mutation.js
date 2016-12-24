@@ -39,7 +39,7 @@ module.exports = {
     for (var x = 0; x < settings.brainSize; x += 1) {
       newBrain[x] = []
       for (var y = 0; y < settings.brainSize; y += 1) {
-        if (randomChance(settings.newTie)) {
+        if (randomChance(settings.newTieChance)) {
           newBrain[x][y] = [{'test': randomTile(), 'run': randomAction()}]
         }
         else {
@@ -47,7 +47,6 @@ module.exports = {
         }
       }
     }
-
     return newBrain
   },
 
@@ -55,17 +54,17 @@ module.exports = {
     for (var x = 0; x < settings.brainSize; x += 1) {
       for (var y = 0; y < settings.brainSize; y += 1) {
         for (var tie = 0; tie < brain[x][y].length; tie += 1) {
-          if (randomChance(settings.changeTie)) {
+          if (randomChance(settings.changeTieChance)) {
             brain[x][y][tie] = {'test': randomTile(), 'run': randomAction()}
           }
         }
+        if (randomChance(settings.addTieChance)) {
+          brain[x][y].push({'test': randomTile(), 'run': randomAction()})
+        }
         for (var tie = 0; tie < brain[x][y].length; tie += 1) {
-          if (randomChance(settings.removeTie) && brain[x][y].length > 0) {
+          if (randomChance(settings.removeTieChance) && brain[x][y].length > 0) {
             brain[x][y].splice(tie, 1)
           }
-        }
-        if (randomChance(settings.addTie)) {
-          brain[x][y].push({'test': randomTile(), 'run': randomAction()})
         }
       }
     }

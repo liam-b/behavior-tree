@@ -1,9 +1,14 @@
 var tile = require('./tile.js')
+var fs = require('fs')
 
 module.exports = {
   World: function (world, worldSize) {
     this.world = world
     this.size = worldSize
+  },
+
+  loadFromJSON: function (path) {
+    return require(path)
   },
 
   generateEmpty: function (worldSize) {
@@ -16,7 +21,21 @@ module.exports = {
     }
 
     // HACK //
-    // generatedWorld[5][5] = tile.wall
+    // generatedWorld[49][52] = tile.wall
+    // generatedWorld[50][52] = tile.wall
+    // generatedWorld[51][52] = tile.wall
+    //
+    // generatedWorld[49][48] = tile.wall
+    // generatedWorld[50][48] = tile.wall
+    // generatedWorld[51][48] = tile.wall
+    //
+    // generatedWorld[48][51] = tile.wall
+    // generatedWorld[48][50] = tile.wall
+    // generatedWorld[48][49] = tile.wall
+
+    // generatedWorld[53][51] = tile.wall
+    // generatedWorld[53][50] = tile.wall
+    // generatedWorld[53][49] = tile.wall
     // HACK //
 
     return generatedWorld

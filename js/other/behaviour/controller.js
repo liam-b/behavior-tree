@@ -1,72 +1,37 @@
 var evolution = require('./evolution.js')
 var world = require('./world.js')
 
-const mutationSettings = {
-  brainSize: 3,
-  newTie: 20,
-  addTie: 10,
-  changeTie: 20,
-  removeTie: 10
-}
-const evolutionSettings = {
-  generationSize: 100
-}
-const newCreatureSettings = {
-  energy: 15,
-  position: {
-    x: 50,
-    y: 50
-  },
-  viewArea: 3
-}
-const gradeSettings = {
-  mapSize: 100,
-  steps: 5
-}
-const cullBelow = 50
-
-var map = new world.World(world.generateEmpty(gradeSettings.mapSize), gradeSettings.mapSize)
-module.exports.map = map
-
+var map
+var settings
 
 var creatures = []
 module.exports.creatures = creatures
 
-module.exports.initialiseEvolution = function () {
-  creatures = evolution.populate(mutationSettings, evolutionSettings, newCreatureSettings)
+module.exports.initialiseEvolution = function (init) {
+  map = init.world
+  settings = init.settings
+
+  creatures = evolution.populate(settings)
   module.exports.creatures = creatures
 }
 
 module.exports.stepGeneration = function () {
-  creatures = evolution.grade(creatures, gradeSettings, map)
-  creatures = evolution.cull(creatures, cullBelow)
-  creatures = evolution.repopulate(creatures, evolutionSettings, newCreatureSettings, mutationSettings)
-  
-  creatures = evolution.grade(creatures, gradeSettings, map)
+  creatures = evolution.grade(creatures, settings, map)
+  creatures = evolution.cull(creatures, settings)
+  creatures = evolution.repopulate(creatures, settings)
+
+  creatures = evolution.grade(creatures, settings, map)
   evolution.postGrade(creatures)
   module.exports.creatures = creatures
 }
 
 module.exports.loopGenerations = function (loops) {
   for (var loop = 0; loop < loops; loop += 1) {
-    creatures = evolution.grade(creatures, gradeSettings, map)
-    creatures = evolution.cull(creatures, cullBelow)
-    creatures = evolution.repopulate(creatures, evolutionSettings, newCreatureSettings, mutationSettings)
-    evolution.postGrade(creatures)
-    module.exports.creatures = creatures
+    creatures = evolution.grade(creatures, settings, map)
+    creatures = evolution.cull(creatures, settings)
+    creatures = evolution.repopulate(creatures, settings)
   }
-  creatures = evolution.grade(creatures, gradeSettings, map)
-  evolution.postGrade(creatures)
-  module.exports.creatures = creatures
-}
-
-module.exports.loopGenerationsFast = function (loops) {
-  for (var loop = 0; loop < loops; loop += 1) {
-    creatures = evolution.grade(creatures, gradeSettings, map)
-    creatures = evolution.cull(creatures, cullBelow)
-    creatures = evolution.repopulate(creatures, evolutionSettings, newCreatureSettings, mutationSettings)
-  }
-  creatures = evolution.grade(creatures, gradeSettings, map)
+  creatures = evolution.grade(creatures, settings, map)
   evolution.postGrade(creatures)
   module.exports.creatures = creatures
 }

@@ -2,6 +2,7 @@ var Creature = require('./creature.js')
 var world = require('./world.js')
 var grade = require('./grade.js')
 var mutation = require('./mutation.js')
+var Brain = require('./brain.js')
 
 function compare (a,b) {
   if (a.fitness < b.fitness) return -1
@@ -10,57 +11,57 @@ function compare (a,b) {
 }
 
 module.exports = {
-  populate: function (mutationSettings, evolutionSettings, newCreatureSettings) {
+  populate: function (settings) {
     var generation = []
-    for (var size = 0; size < evolutionSettings.generationSize; size += 1) {
+    for (var size = 0; size < settings.populationSize; size += 1) {
       generation.push(new Creature({
-        energy: newCreatureSettings.energy,
+        energy: settings.defaultCreature.energy,
         position: {
-          x: newCreatureSettings.position.x,
-          y: newCreatureSettings.position.y
+          x: settings.defaultCreature.position.x,
+          y: settings.defaultCreature.position.y
         } // TODO add brain class for more brainy stuff
-      }, mutation.create({brainSize: mutationSettings.brainSize, newTie: mutationSettings.newTie}), newCreatureSettings.viewArea))
+      }, new Brain(settings.brainSize, mutation.create({brainSize: settings.brainSize, newTieChance: settings.mutation.newTieChance})), settings.defaultCreature.viewArea))
     }
     return generation
   },
 
-  grade: function (generation, gradeSettings, map) {
+  grade: function (generation, settings, map) {
     testingEnviroment = map
 
     for (var index = 0; index < generation.length; index += 1) {
-      grade(generation[index], testingEnviroment, gradeSettings)
+      grade(generation[index], testingEnviroment, settings)
     }
 
     return generation
   },
 
-  cull: function (generation, cullBelow) {
+  cull: function (generation, settings) {
     generation.sort(compare)
 
-    for (var index = 0; index < ((cullBelow / 100) * generation.length); index += 1) {
+    for (var index = 0; index < ((settings.cullPercentage / 100) * generation.length); index += 1) {
       generation.splice(index, 1)
     }
 
     return generation
   },
 
-  repopulate: function (generation, evolutionSettings, newCreatureSettings, mutationSettings) {
+  repopulate: function (generation, settings) {
     for (var creature = 0; creature < generation.length; creature += 1) {
-      generation[creature].energy = newCreatureSettings.energy
+      generation[creature].energy = settings.defaultCreature.energy
       generation[creature].position = {
-        x: newCreatureSettings.position.x,
-        y: newCreatureSettings.position.y,
+        x: settings.defaultCreature.position.x,
+        y: settings.defaultCreature.position.y,
       }
     }
     bestBrain = generation[generation.length - 1].brain
-    while (generation.length < evolutionSettings.generationSize) {
+    while (generation.length < settings.populationSize) {
       generation.push(new Creature({
-        energy: newCreatureSettings.energy,
+        energy: settings.defaultCreature.energy,
         position: {
-          x: newCreatureSettings.position.x,
-          y: newCreatureSettings.position.y
+          x: settings.defaultCreature.position.x,
+          y: settings.defaultCreature.position.y
         } // TODO add brain class for more brainy stuff
-      }, mutation.mutate(bestBrain, mutationSettings), newCreatureSettings.viewArea))
+      }, new Brain(settings.brainSize, mutation.mutate(bestBrain, settings.mutation)), settings.defaultCreature.viewArea))
     }
 
     return generation
