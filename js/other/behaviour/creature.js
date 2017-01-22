@@ -18,7 +18,7 @@ module.exports = function (info, brain, viewArea) {
       for (var y = 0; y < this.viewArea; y += 1) {
         if (this.brain.viewArea[x][y].length > 0) {
           for (var link = 0; link < this.brain.viewArea[x][y].length; link += 1) {
-            if (this.viewport[x][y] == this.brain[x][y][link].test) {
+            if (this.viewport[x][y] == this.brain.viewArea[x][y][link].test) {
               if (!this.behaved) {
                 this.brain.viewArea[x][y][link].run(this, world)
                 this.behaved = true

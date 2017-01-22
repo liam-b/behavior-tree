@@ -1,5 +1,5 @@
 var tile = require('./tile.js')
-var fs = require('fs')
+//var fs = require('fs')
 
 module.exports = {
   World: function (world, worldSize) {
@@ -7,8 +7,29 @@ module.exports = {
     this.size = worldSize
   },
 
+  //Sorry, this was a quick hack to get it working in the browser. Shouldn't be much work to fix.
   loadFromJSON: function (path) {
-    return require(path)
+    return [["air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air"],
+    ["air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air"],
+    ["air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air"],
+    ["air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air"],
+    ["air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air"],
+    ["air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air"],
+    ["air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air"],
+    ["air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air"],
+    ["air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air"],
+    ["air","air","air","air","air","air","air","air","air","wall","air","air","air","air","air","air","air","air","air","air","air"],
+    ["air","air","air","air","air","air","air","air","air","wall","air","air","air","air","air","air","air","air","air","air","air"],
+    ["air","air","air","air","air","air","air","air","air","wall","air","air","air","air","air","air","air","air","air","air","air"],
+    ["air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air"],
+    ["air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air"],
+    ["air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air"],
+    ["air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air"],
+    ["air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air"],
+    ["air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air"],
+    ["air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air"],
+    ["air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","wall","wall","wall"],
+    ["air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air","air"]];
   },
 
   generateEmpty: function (worldSize) {

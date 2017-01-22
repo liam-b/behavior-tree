@@ -15,19 +15,20 @@
         </canvas>
       </div>
       <div id="creatureBrain" ng-controller="BrainController" class="scroll">
-        x: {{brain.properties.position.x}}, y: {{brain.properties.position.y}} <br>
-        rotation: {{brain.properties.rotation}}
+        x: {{creature.position.x}}, y: {{creature.position.y}} <br>
 
-        <span ng-if="brain.properties.rotation == 0">↑</span>
-        <span ng-if="brain.properties.rotation == 1">→</span>
-        <span ng-if="brain.properties.rotation == 2">↓</span>
-        <span ng-if="brain.properties.rotation == 3">←</span>
+        <span ng-if="creature.properties.rotation == 0">↑</span>
+        <span ng-if="creature.properties.rotation == 1">→</span>
+        <span ng-if="creature.properties.rotation == 2">↓</span>
+        <span ng-if="creature.properties.rotation == 3">←</span>
 
         <br>
 
-        energy: {{brain.properties.energy}} <br>
-        fitness: {{ brain.fitness() }}
+        energy: {{creature.energy}} <br>
+        fitness: {{ creature.fitness }}
         <hr>
+
+        {{ creature.brain }}
         <ul>
           <!-- <li ng-repeat="module in brain.behavior">
             {{ module.type }}
@@ -39,11 +40,11 @@
           </li>
         </ul>
       </div>
-      <div id="generations" ng-controller="GenerationsController">
+      <div id="generations" ng-controller="GenerationsController" class="scroll">
         <ul>
           <li ng-repeat="creature in evolution.creatures">
             Creature {{ $index + 1 }}
-            <span class="right">Score: {{ creature.brains.properties.fitness }}</span>
+            <span class="right">Score: {{ creature.fitness }}</span>
           </li>
         </ul>
       </div>

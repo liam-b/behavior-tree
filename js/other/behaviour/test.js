@@ -38,7 +38,7 @@ evolution.initialiseEvolution({
 // evolution.stepGeneration()
 
 // loop through multiple generations
-evolution.loopGenerations(1000)
+evolution.loopGenerations(50000)
 
 // console.log(JSON.stringify(evolution.creatures[evolution.creatures.length - 1].brain))
 console.log(evolution.creatures[evolution.creatures.length - 1].fitness, evolution.creatures[evolution.creatures.length - 1].brain)

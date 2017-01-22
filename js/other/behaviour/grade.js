@@ -3,7 +3,7 @@ module.exports = function (creature, world, settings) {
     creature.behave(world)
   }
 
-  creature.fitness = creature.position.y
+  creature.fitness = creature.position.y+ creature.position.x
 
-  // creature.fitness = 100 - Math.sqrt((creature.position.x - 60) * (creature.position.x - 60) + (creature.position.y - 50) * (creature.position.y - 50))
+  //creature.fitness = Math.round(100 - Math.sqrt((creature.position.x - 0) * (creature.position.x - 0) + (creature.position.y - 0) * (creature.position.y - 0)))
 }

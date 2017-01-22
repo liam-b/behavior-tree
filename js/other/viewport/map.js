@@ -1,9 +1,10 @@
 var tileImg = new Image();
 tileImg.src = "assets/tiles.png";
 
-var Map = function(){
-	this.width = 10;
-	this.height = 10;
+var Map = function(world){
+	this.width = world.size;
+	this.height = world.size;
+	this.world = world;
 	this.fitOnScreen = false;
 
 	if (this.fitOnScreen){
@@ -13,19 +14,7 @@ var Map = function(){
 	}
 
 	this.drawGrid = true;
-	this.tiles =
-	[
-		1,1,1,1,1,1,1,1,1,1,
-		1,0,0,0,0,0,0,0,0,1,
-		1,0,0,0,0,0,0,0,0,1,
-		1,0,0,0,0,0,0,0,0,1,
-		1,0,0,0,0,0,0,0,0,1,
-		1,0,0,0,0,0,0,0,0,1,
-		1,0,0,0,0,0,0,0,0,1,
-		1,0,0,0,0,0,0,0,0,1,
-		1,0,0,0,0,0,0,0,0,1,
-		1,1,1,1,1,1,1,1,1,1
-	]
+
 }
 
 Map.prototype.update = function() {
@@ -33,7 +22,7 @@ Map.prototype.update = function() {
 }
 
 Map.prototype.getTile = function(x,y){
-	return this.tiles[y*this.width + x];
+	return this.world.world[y][x] == "air" ? 0 : 1;
 }
 
 Map.prototype.draw = function(c) {

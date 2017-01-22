@@ -3,17 +3,17 @@ var tile = require('./tile.js')
 module.exports = {
   'move': {
     up: function (creature, world) {
-      if (creature.position.y < world.size - 1) {
-        if (world.world[creature.position.x][creature.position.y + 1] != tile.wall) {
-          creature.position.y += 1
+      if (creature.position.y > 0) {
+        if (world.world[creature.position.x][creature.position.y - 1] != tile.wall) {
+          creature.position.y -= 1;
         }
       }
     },
 
     down: function (creature, world) {
-      if (creature.position.y > 1) {
-        if (world.world[creature.position.x][creature.position.y - 1] != tile.wall) {
-          creature.position.y -= 1
+      if (creature.position.y < world.size-1) {
+        if (world.world[creature.position.x][creature.position.y + 1] != tile.wall) {
+          creature.position.y += 1
         }
       }
     },
@@ -36,7 +36,7 @@ module.exports = {
   },
 
   eat: function (creature, world) {
-    if (world.world[creature.position.x][creature.position.y] = tile.food) {
+    if (world.world[creature.position.x][creature.position.y] == tile.food) {
       creature.energy += 10;
     }
   }

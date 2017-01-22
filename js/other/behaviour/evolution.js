@@ -26,7 +26,7 @@ module.exports = {
   },
 
   grade: function (generation, settings, map) {
-    testingEnviroment = map
+    var testingEnviroment = map
 
     for (var index = 0; index < generation.length; index += 1) {
       grade(generation[index], testingEnviroment, settings)
@@ -53,7 +53,7 @@ module.exports = {
         y: settings.defaultCreature.position.y,
       }
     }
-    bestBrain = generation[generation.length - 1].brain
+    var bestBrain = generation[generation.length - 1].brain
     while (generation.length < settings.populationSize) {
       generation.push(new Creature({
         energy: settings.defaultCreature.energy,
@@ -61,7 +61,7 @@ module.exports = {
           x: settings.defaultCreature.position.x,
           y: settings.defaultCreature.position.y
         } // TODO add brain class for more brainy stuff
-      }, new Brain(settings.brainSize, mutation.mutate(bestBrain, settings.mutation)), settings.defaultCreature.viewArea))
+      }, new Brain(settings.brainSize, mutation.mutate(bestBrain.viewArea, settings.mutation)), settings.defaultCreature.viewArea))
     }
 
     return generation

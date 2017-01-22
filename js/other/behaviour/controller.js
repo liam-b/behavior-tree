@@ -1,18 +1,21 @@
 var evolution = require('./evolution.js')
 var world = require('./world.js')
 
-var map
+var map = undefined;
 var settings
 
 var creatures = []
 module.exports.creatures = creatures
+module.exports.map = map
 
 module.exports.initialiseEvolution = function (init) {
   map = init.world
+  module.exports.map = map
   settings = init.settings
 
   creatures = evolution.populate(settings)
   module.exports.creatures = creatures
+  return this;
 }
 
 module.exports.stepGeneration = function () {
